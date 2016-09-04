@@ -1,4 +1,4 @@
-MU-Plugins
-==========
+Must-Use Plugins
+================
 
-Must-Use plug-ins for bootstrapping personal WordPress projects.
+Must-Use Plug-ins for bootstrapping personal WordPress projects.
