@@ -6,10 +6,10 @@
  * @category   CleanUp
  * @package    WordPress
  * @subpackage MustUsePlugin
- * @author     Jason D. Moss <jason@jadmlabs.com>
- * @copyright  2016 Jason D. Moss. All Rights Reserved.
- * @license    https://www.jdmlabs.com/license/license-MIT-1.1.txt [MIT License] [LICENSE]
- * @link       https://www.jdmlabs.com/
+ * @author     Jason D. Moss <jason@jdmlabs.com>
+ * @copyright  2016 Jason D. Moss. All rights freely given.
+ * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [MIT License]
+ * @link       https://github.com/jasondmoss/mu-plugins/
  */
 
 
