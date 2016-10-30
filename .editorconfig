@@ -13,7 +13,7 @@ max_line_length = 120
 [*.{inc,js,json,php,py,sh,txt}]
 indent_size = 4
 
-[*.{blade,css,less,html,phtml,scss,sql,twig}]
+[*.{blade,css,less,htaccess,html,phtml,scss,sql,twig}]
 indent_size = 2
 
 [*.{inc,js,php}]

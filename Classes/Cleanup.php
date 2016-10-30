@@ -1,11 +1,11 @@
 <?php
 
 /**
- * WordPress Clean-Up.
+ * ...
  *
  * @category   CleanUp
  * @package    WordPress
- * @subpackage MustUsePlugin
+ * @subpackage MustUsePlugin|Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>
  * @copyright  2016 Jason D. Moss. All rights freely given.
  * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [MIT License]
@@ -15,12 +15,18 @@
 
 namespace MU\Classes;
 
+/**
+ * Class Cleanup
+ *
+ * @package mu-plugins\Classes
+ */
 class Cleanup
 {
 
     /**
-     * Constructor.
+     * Cleanup constructor.
      *
+     * @return void
      * @access public
      */
     public function __construct()
@@ -38,6 +44,16 @@ class Cleanup
         remove_action('wp_head', 'feed_links_extra', 3);
         remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
         remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+
+        /**
+         * Don't assume I want media embedding by default...
+         */
+        add_action('init', function () {
+            remove_action('rest_api_init', 'wp_oembed_register_route');
+            remove_action('wp_head', 'wp_oembed_add_discovery_links');
+            remove_action('wp_head', 'wp_oembed_add_host_js');
+            remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
+        }, PHP_INT_MAX - 1);
 
         /* Remove inline CSS and JS for WP emoji support. */
         remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -58,12 +74,6 @@ class Cleanup
                 $wp_widget_factory->widgets['WP_Widget_Recent_Comments'],
                 'recent_comments_style'
             ]);
-        }
-
-        /* Remove self-closing tag and change ''s to "'s on rel_canonical(). */
-        if (!function_exists('aioseop_init_class') || !class_exists('WPSEO_Frontend')) {
-            remove_action('wp_head', 'rel_canonical');
-            add_action('wp_head', [$this, 'relCanonical']);
         }
 
         /*  */
@@ -108,26 +118,9 @@ class Cleanup
 
 
     /**
-     * ...
-     *
-     * @access public
-     * @final
-     */
-    final public function relCanonical()
-    {
-        global $wp_the_query;
-
-        if (!is_singular() || !$queriedId = $wp_the_query->get_queried_object_id()) {
-            return;
-        }
-
-        $link = get_permalink($queriedId);
-        echo "\n<link rel=\"canonical\" href=\"$link\">\n";
-    }
-
-
-    /**
      * Clean up output of stylesheet <link> tags.
+     *
+     * @param string $input
      *
      * @return string
      * @access public
@@ -194,7 +187,7 @@ class Cleanup
 
 
     /**
-     * Remove unnecessary self-closing tags
+     * Remove unnecessary self-closing tags.
      *
      * @param string $input
      *
@@ -216,9 +209,6 @@ class Cleanup
      * @return string
      * @access public
      * @final
-     *
-     * @link https://gist.github.com/965956
-     * @link https://www.readability.com/publishers/guidelines#publisher
      */
     final public function embedWrap($cache)
     {
@@ -228,19 +218,19 @@ class Cleanup
 
     /**
      * Don't return the default description in the RSS feed if it hasn't been
-     * changed.
+     * changed from the default value.
      *
-     * @param array $bloginfo
+     * @param string $tagline
      *
-     * @return array
+     * @return string
      * @access public
      * @final
      */
-    final public function removeDefaultDescription($bloginfo)
+    final public function removeDefaultDescription($tagline)
     {
         $defaultTagline = 'Just another WordPress site';
 
-        return ($bloginfo === $defaultTagline) ? '' : $bloginfo;
+        return ($tagline === $defaultTagline) ? '' : $tagline;
     }
 }
 
