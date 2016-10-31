@@ -7,7 +7,7 @@
  * @subpackage MustUsePlugin|Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>
  * @copyright  2016 Jason D. Moss. All rights freely given.
- * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [MIT License]
+ * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [WTFPL License]
  * @link       https://github.com/jasondmoss/mu-plugins/
  *
  * - - - - -
@@ -50,9 +50,6 @@ define('REDRESS_ASSETS_URL', REDRESS_URL .'assets');
  *
  * Need to make the instance(s) object {$k} a GLOBAL for it's general use
  * throughout WordPress. Ugh.
- *
- * @example $k->bootstrap->relCanonical();
- * @example $k->development->dump($variable);
  */
 global $k;
 $k = (object) [];
@@ -63,6 +60,10 @@ foreach ([ 'Bootstrap', 'Cleanup', 'Development', 'Access', ] as $klassName) {
     $k->{strToLower($klassName)} = new $klass;
 }
 
+
+/**
+* Map public functions to/from application classes.
+*/
 require_once __DIR__ .'/assets/map.php';
 
 /* <> */
