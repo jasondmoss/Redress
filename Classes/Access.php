@@ -1,14 +1,14 @@
 <?php
 
 /**
- * ...
+ * WordPress Log-In Enhancements.
  *
  * @category   Access
  * @package    WordPress
  * @subpackage MustUsePlugin|Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>
  * @copyright  2016 Jason D. Moss. All rights freely given.
- * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [MIT License]
+ * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [WTFPL License]
  * @link       https://github.com/jasondmoss/mu-plugins/
  */
 
@@ -37,18 +37,14 @@ class Access
      */
     public function __construct()
     {
-        foreach ([
-            'name',
-            'description',
-            'url'
-        ] as $param) {
+        foreach ([ 'name', 'description', 'url' ] as $param) {
             $this->bloginfo[$param] = get_bloginfo($param);
         }
 
         /* Customize the Login page. */
         add_filter('login_headerurl', [$this, 'replaceLoginHeaderUrl']);
         add_filter('login_headertitle', [$this, 'replaceLoginHeaderTitle']);
-        add_filter('login_errors', [$this, 'loginFailed']);
+        // add_filter('login_errors', [$this, 'loginFailed']);
 
         /* Swap out the default WordPress "authenticate" filter with our own. */
         remove_filter('authenticate', 'wp_authenticate_username_password', 20, 3);
@@ -63,7 +59,7 @@ class Access
 
 
     /**
-     * Replace the WordPress link with the home URL.
+     * Replace the WordPress link with this website's home URL.
      *
      * @return string
      * @access public
@@ -75,7 +71,7 @@ class Access
 
 
     /**
-     * Replace the WordPress title with custom title.
+     * Replace the WordPress title with this website's name.
      *
      * @return string
      * @access public
@@ -104,8 +100,8 @@ class Access
      * This just insures there will be no specific information concerning the
      * username or password.
      *
-     * Default WordPress message reads:
-     *   ERROR: The password you entered for the username "admin" is incorrect.
+     * Default WordPress message reads as thus:
+     *   ERROR: The password you entered for the username {user} is incorrect.
      *
      * @return string
      * @access public
@@ -117,7 +113,7 @@ class Access
 
 
     /**
-     * Allow authentication by email address.
+     * Allow authentication by email address and timestamp login.
      *
      * @param string $user
      * @param string $username
@@ -141,7 +137,7 @@ class Access
             in_array('account_manager', $authenticate->roles)
         ) {
             /**
-             * Record when a Partner Account Manager (PAM) logs into the system.
+             * Record when a user logs into the system.
              *
              * @param (int)    $user_id    (Required) User ID.
              * @param (string) $meta_key   (Required) Metadata key.
@@ -158,8 +154,7 @@ class Access
 
 
     /**
-     * Modify the string of the login page to prompt for username or email
-     * address.
+     * Modify the string of the login page to prompt for username/email address.
      *
      * @access public
      */
@@ -169,13 +164,15 @@ class Access
             return;
         }
 
-        $uname = esc_js('Username');
-        $emailAddress = esc_js(__("Email Address", 'redress'));
+        $uname = esc_js(__('Username', 'redress'));
+        $emailAddress = esc_js(__('Email Address', 'redress'));
 
         echo <<<JS
     <script>
 if (document.getElementById('loginform')) {
-    document.getElementById('loginform').childNodes[1].childNodes[1].childNodes[0].nodeValue = '{$emailAddress}';
+    document.getElementById('loginform')
+        .childNodes[1].childNodes[1].childNodes[0]
+        .nodeValue = '{$emailAddress}';
 }
 
 if (document.getElementById('login_error')) {

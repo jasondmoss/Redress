@@ -14,11 +14,11 @@
  *
  * Plugin Name: Redress
  * Plugin URI:  https://github.com/jasondmoss/mu-plugins/
- * Description: Bootstrapping processes to clean up and streamline a WordPress installation.
- * Version:     0.0.2
+ * Description: Bootstrapping processes to clean-up, streamline and enhance WordPress.
+ * Version:     0.0.3
  * Author:      Jason D. Moss <jason@jdmlabs.com>
  * Author URI:  https://www.jdmlabs.com/
- * License:     MIT License
+ * License:     WTFPL License
  * License URI: https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md
  * Domain Path: /languages
  * Text Domain: redress

@@ -8,7 +8,7 @@
  * @subpackage MustUsePlugin|Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>
  * @copyright  2016 Jason D. Moss. All rights freely given.
- * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [MIT License]
+ * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [WTFPL License]
  * @link       https://github.com/jasondmoss/mu-plugins/
  */
 

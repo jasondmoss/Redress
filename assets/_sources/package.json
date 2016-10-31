@@ -1,0 +1,23 @@
+{
+    "name": "mu-plugins",
+    "version": "0.0.3",
+    "copyright": "2016 Jason D. Moss. All rights freely given.",
+    "license": "https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [WTFPL License]",
+    "description": "...",
+    "homepage": "https://github.com/jasondmoss/mu-plugins",
+    "bugs": "https://github.com/jasondmoss/mu-plugins/issues",
+    "author": {
+        "name": "Jason D. Moss",
+        "email": "jason@jdmlabs.com",
+        "url": "https://www.jdmlabs.com/"
+    },
+    "repository": {},
+    "devDependencies": {
+        "grunt": "~1.0.1",
+        "grunt-banner": "~0.6.0",
+        "grunt-contrib-cssmin": "~1.0.2",
+        "grunt-contrib-jshint": "~1.0.0",
+        "grunt-contrib-uglify": "~2.0.0",
+        "grunt-contrib-watch": "~1.0.0"
+    }
+}
