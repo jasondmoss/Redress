@@ -97,8 +97,15 @@ module.exports = function (grunt) {
 
             target: {
                 files: {
+
+                    /* Access/Login. */
                     "../min/access.min.css": [
                         "styles/access.css"
+                    ],
+
+                    /* Administration. */
+                    "../min/admin.min.css": [
+                        "styles/admin.css"
                     ]
                 }
             }

@@ -33,7 +33,7 @@ class Bootstrap
     {
         add_action('plugins_loaded', [$this, 'redressLoadTextDomain']);
         // add_action('wp_enqueue_scripts', [$this, 'loadSiteAssets']);
-        // add_action('admin_enqueue_scripts', [$this, 'loadAdminAssets']);
+        add_action('admin_enqueue_scripts', [$this, 'loadAdminAssets']);
         add_action('login_enqueue_scripts', [$this, 'registerAccessAssets'], 10);
     }
 
@@ -110,32 +110,32 @@ class Bootstrap
     {
         wp_register_style(
             'redress-admin-style',
-            REDRESS_ASSETS_URL ."/css/{$this->dev}redress-admin.css",
+            REDRESS_ASSETS_URL ."/min/admin.min.css",
             array(),
-            $this->rand,
+            false,
             'all'
         );
 
-        wp_register_script(
-            'redress-core-script',
-            REDRESS_ASSETS_URL ."/js/{$this->dev}redress.js",
-            array('jquery-ui-sortable'),
-            $this->rand,
-            true
-        );
+        // wp_register_script(
+        //     'redress-core-script',
+        //     REDRESS_ASSETS_URL ."/js/{$this->dev}redress.js",
+        //     array('jquery-ui-sortable'),
+        //     $this->rand,
+        //     true
+        // );
 
-        wp_register_script(
-            'redress-admin-script',
-            REDRESS_ASSETS_URL ."/js/{$this->dev}redress-admin.js",
-            array('redress-core'),
-            $this->rand,
-            true
-        );
+        // wp_register_script(
+        //     'redress-admin-script',
+        //     REDRESS_ASSETS_URL ."/js/{$this->dev}redress-admin.js",
+        //     array('redress-core'),
+        //     $this->rand,
+        //     true
+        // );
 
         wp_enqueue_style('redress-admin-style');
 
-        wp_enqueue_script('redress-core-script');
-        wp_enqueue_script('redress-admin-script');
+        // wp_enqueue_script('redress-core-script');
+        // wp_enqueue_script('redress-admin-script');
     }
 
 
