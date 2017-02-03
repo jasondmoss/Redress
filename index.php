@@ -24,9 +24,6 @@
  * Text Domain: redress
  */
 
-
-namespace MU;
-
 /**
  * Check/Confirm PHP version.
  */
@@ -34,16 +31,14 @@ if (version_compare(PHP_VERSION, '5.6', '<')) {
     die('Redress requires at least PHP 5.6. Your installed version is '. PHP_VERSION);
 }
 
-
 /**
  * ...
  */
 define('REDRESS', plugin_basename(__FILE__));
-define('REDRESS_DIR', plugin_dir_path(__FILE__));
-define('REDRESS_URL', plugin_dir_url(__FILE__));
+define('REDRESS_DIR', plugin_dir_path(__FILE__) .'redress/');
+define('REDRESS_URL', plugin_dir_url(__FILE__) .'redress/');
 define('REDRESS_ASSETS_DIR', REDRESS_DIR .'assets');
 define('REDRESS_ASSETS_URL', REDRESS_URL .'assets');
-
 
 /**
  * Load and initialize all available classes.
@@ -51,19 +46,8 @@ define('REDRESS_ASSETS_URL', REDRESS_URL .'assets');
  * Need to make the instance(s) object {$k} a GLOBAL for it's general use
  * throughout WordPress. Ugh.
  */
-global $k;
-$k = (object) [];
-foreach ([ 'Bootstrap', 'Cleanup', 'Development', 'Access', ] as $klassName) {
-    include __DIR__ ."/Classes/{$klassName}.php";
-
-    $klass = "MU\\Classes\\{$klassName}";
-    $k->{strToLower($klassName)} = new $klass;
+foreach ([ 'Development', 'Bootstrap', 'Cleanup', 'Access', ] as $file) {
+    include REDRESS_DIR ."{$file}.php";
 }
-
-
-/**
-* Map public functions to/from application classes.
-*/
-require_once __DIR__ .'/assets/map.php';
 
 /* <> */
