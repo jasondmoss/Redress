@@ -12,7 +12,7 @@
  * @link       https://github.com/jasondmoss/mu-plugins/
  */
 
-
+global $bloginfo;
 foreach ([ 'name', 'description', 'url' ] as $param) {
     $bloginfo[$param] = get_bloginfo($param);
 }
@@ -41,6 +41,7 @@ add_action('login_form', 'loginWithUsernameOrEmail');
  */
 function replaceLoginHeaderUrl()
 {
+    global $bloginfo;
     return $bloginfo['url'];
 }
 
@@ -53,6 +54,7 @@ function replaceLoginHeaderUrl()
  */
 function replaceLoginHeaderTitle()
 {
+    global $bloginfo;
     return $bloginfo['name'];
 }
 
@@ -64,6 +66,7 @@ function replaceLoginHeaderTitle()
  */
 function addNewHeaderTitle()
 {
+    global $bloginfo;
     echo "<h2>{$bloginfo['name']}</h2>\n";
     echo "<h3>{$bloginfo['description']}</h3>\n";
 }

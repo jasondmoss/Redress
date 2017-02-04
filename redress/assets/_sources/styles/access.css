@@ -26,21 +26,16 @@ html, body {
   margin: 0 auto;
 }
 
-/*html {
-  background: #eff6fd url(../images/ui/bg-header.png) 0 0 no-repeat!important;
-  background-size: 100% 230px!important;
-}*/
-
 body.login {
   min-width: 0;
-  /*background: transparent url(../images/ui/bg-header-nav.png) 0 0 repeat-x!important;*/
+  background-color: #f0edf2;
   cursor: default;
 }
 
 .development-bar {
   display: block;
   clear: both;
-  z-index: 100001!important;
+  z-index: 100001 !important;
   float: left;
 }
 
@@ -52,11 +47,11 @@ body.login {
   margin: 0;
   padding: 0;
   border-top: 1px solid #b90;
-  background: #ffd100;
+  background-color: #ffd100;
   opacity: .8;
 }
 
-.development-bar>p {
+.development-bar > p {
   margin: 0;
   padding: 0;
   text-align: center;
@@ -76,16 +71,18 @@ body.login {
   float: none;
   width: 75%;
   max-width: 1100px;
-  margin: 0 auto!important;
-  padding-bottom: 3em;
+  margin: 0 auto !important;
+  padding: 0 0 3em;
 }
 
 .login h1 {
   overflow: visible;
   float: right;
   width: 40%;
-  margin: 20px 0 40px;
+  height: 140px;
+  margin: 85px 0 50px;
   outline: 0;
+  background-color: #d2cbd6;
 }
 
 .login h1 a,
@@ -93,9 +90,8 @@ body.login {
 .login h1 a:hover {
   overflow: visible;
   width: 100%;
-  height: 120px;
-  border: 0!important;
-  outline: 0!important;
+  border: 0 !important;
+  outline: 0 !important;
   background: transparent/* url(../images/ui/logo.png) 50% 50% no-repeat*/;
   background-size: 100%, cover;
   text-indent: -1000em;
@@ -103,17 +99,18 @@ body.login {
 
 .login h2 {
   display: block;
-  clear: both;
-  position: relative;
   float: left;
-  width: 100%;
-  margin: 26px 0 230px;
-  text-align: center;
-  font-style: italic;
-  font-size: 3.5em;
-  line-height: 1;
-  font-family: 'calluna', 'times new roman', serif;
+  width: 75%;
+  margin: 50px 0 0 12.5%;
+  font: normal normal normal 3em/1 sans-serif;
   color: #000;
+}
+
+.login h3 {
+  display: block;
+  clear: left;
+  float: left;
+  margin: 10px 0 26px;
 }
 
 #login .message,
@@ -127,19 +124,18 @@ body.login {
 .login form {
   float: left;
   width: 50%;
-  margin: 0;
-  border: 1px solid;
-  border-color: #eff6fd #e6f2ff #e1edfa;
-  background: linear-gradient(#eff6fd, #fafcff) #f5f5f5 repeat 0 0;
-  box-shadow: 0 0 0!important;
-  font-variant: small-caps;
+  margin: 30px 0 0;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, .2);
   color: #333;
 }
 
 .login form label {
   display: block;
   padding: 3px 0 5px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: #000;
 }
 
@@ -151,22 +147,23 @@ body.login {
   margin-right: 6px;
   margin-bottom: 16px;
   padding: .5em 1em;
-  border: 1px solid #c2d6eb!important;
-  outline: 0!important;
+  border: 1px solid #d2cbd6 !important;
+  outline: 0 !important;
+  box-shadow: 0 0 5px rgba(210, 203, 214, .7);
   line-height: 1.5;
   font-weight: 500;
   font-size: 100%;
-  color: #333!important;
+  color: #333 !important;
 }
 
 .login input[type=password]:focus,
 .login input[type=text]:focus {
-  outline: thin dotted \9!important;
-  border-color: #0073bb!important;
-  outline: 0!important;
-  background: #fff!important;
+  outline: thin dotted \9 !important;
+  border-color: #a45ecc !important;
+  outline: 0 !important;
+  background: #fff !important;
   box-shadow: 0 0 4px rgba(0, 115, 73, .3);
-  color: #000!important;
+  color: #000 !important;
 }
 
 .login .forgetmenot {
@@ -225,34 +222,31 @@ body.login {
 
 .login .button,
 .login input[type=submit] {
-  height: 50px!important;
+  height: 46px !important;
   margin: -.5em 0 0;
-  padding: .5em 1.5em!important;
-  border: 1px solid #c2d6eb;
+  padding: .4em 1.5em !important;
+  border: 1px solid #d2cbd6;
   border-radius: 0;
   background: #fff;
-  box-shadow: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  font-variant: small-caps;
+  box-shadow: 0 0 5px rgba(210, 203, 214, .7);
   font-weight: 700;
   font-size: 1.2em;
-  line-height: 2em!important;
+  line-height: 2em !important;
   color: #4b4b4b;
   text-shadow: 0 1px 2px rgba(255, 255, 255, .2);
-  cursor: pointer;
+  cursor: default;
 }
 
 .login .button:focus,
 .login .button:hover,
 .login input[type=submit]:focus,
 .login input[type=submit]:hover {
-  border-color: #000;
+  border: 1px solid #b5a9bd;
   outline: 0;
-  background: #222;
-  box-shadow: inset 0 0 3px #fff;
-  color: #fff!important;
-  text-shadow: 0 0 1px rgba(255, 255, 255, 1);
+  background: #f0edf2;
+  box-shadow: inset 0 0 3px #fff, 0 0 10px rgba(210, 203, 214, 1);
+  color: #000 !important;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 1);
 }
 
 .login .button:active,
@@ -267,26 +261,6 @@ input#wp-submit {
   height: 33px;
 }
 
-.login .button:focus,
-.login .button:hover {
-  border-color: #999;
-  outline: 0;
-  background: #e6e6e6;
-  background-image: linear-gradient(#fff, #e0e0e0);
-  box-shadow: 0 1px 2px rgba(49, 187, 119, .25), inset 0 0 3px #fff;
-  color: #444!important;
-}
-
-.login .button:active {
-  border: 1px solid #aaa;
-  border-bottom-color: #ccc;
-  border-top-color: #999;
-  outline: 0;
-  background: #e3e3e3;
-  background-image: linear-gradient(#e6e6e6, #e0e0e0);
-  box-shadow: inset 0 1px 2px #aaa;
-}
-
 .login.login-action-lostpassword .button {
   margin-top: -10px;
 }
@@ -297,96 +271,85 @@ input#wp-submit {
  * --------------------------------------------------------------------------- *
  */
 
-@media screen and (max-width:768px) {
-  html {
-    background-size: 100% 96px!important;
+@media screen and (max-width: 768px) {
+  .development-bar {
+    display: none;
   }
+
+  html,
+  body {
+    overflow: hidden;
+    height: auto;
+  }
+
   #login {
-    width: 98%;
+    width: 94%;
+    max-width: 1100px;
+    margin: 0 auto !important;
+    padding: 0;
   }
-  .login h1 {
-    float: left;
-    width: 100%;
-    margin: 0 auto;
+
+  .login form {
+    padding: 26px 24px;
   }
-  .login h1 a {
-    height: 100px;
-    background-position: 50% 0;
-    background-size: 350px 89px;
-  }
+
   .login h2 {
-    margin: 30px 0 75px;
-    font-size: 2.5em;
+    margin: 30px 0 0 24px;
+    font-size: 1.8em;
   }
-  #login .message,
-  #login_error {
-    width: 89%;
-    margin: 10px;
+
+  .login #nav {
+    margin: 2em 0 1em;
   }
+
+  .login #backtoblog {
+    margin-top: 0;
+  }
+
+  .login #backtoblog a {
+    font-size: 110%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .login h1 {
+    display: none;
+  }
+
+  .login h2,
+  .login h3 {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    text-align: center;
+  }
+
   .login form {
     float: none;
-    width: 65%;
+    width:65%;
     margin: 0 auto;
+    padding: 26px 24px;
   }
-  .login form .input,
-  .login input[type=password],
-  .login input[type=text] {
-    padding: .6em;
-    font-size: 1em;
-  }
-  .login #nav {
-    margin-top: 1em;
-  }
+
   .login #nav,
   .login #backtoblog {
     display: block;
-    float: none;
-    width: 65%;
-    margin: 1em auto;
+    clear: both;
+    float: right;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .login #nav {
+    margin-left: 12%;
+  }
+
+  .login #nav a,
+  .login #backtoblog a {
+    display: block;
+    padding: 1em;
     text-align: right;
-  }
-  .login #backtoblog {
-    margin-top: 30px;
-  }
-  .login #backtoblog a {
-    font-size: 150%;
-  }
-}
-
-@media screen and (max-width:480px) {
-  html {
-    background-size: 0!important;
-  }
-  body.login {
-    padding-top: 0;
-    background: transparent!important;
-  }
-  .login h2 {
-    margin: 20px 0 30px;
-    font-size: 2em;
-  }
-  .login form,
-  .login #nav,
-  .login #backtoblog {
-    width: 84%;
-  }
-  .login #backtoblog a {
-    font-size: 130%;
-  }
-}
-
-@media screen and (max-width:400px) {
-  .login h1 a {
-    height: 80px;
-    background-position: 50% 0;
-    background-size: 290px 68px;
-  }
-  .login h2 {
-    font-size: 1.5em;
-  }
-  .login #backtoblog a {
-    padding: 1.5em 0;
-    font-size: 110%;
   }
 }
 

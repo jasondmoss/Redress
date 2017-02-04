@@ -14,12 +14,35 @@
 
 
 add_action('plugins_loaded', 'redressLoadTextDomain');
-// add_action('wp_enqueue_scripts', 'loadSiteAssets');
-add_action('admin_enqueue_scripts', 'loadAdminAssets');
-add_action('login_enqueue_scripts', 'registerAccessAssets', 10);
+add_action('wp_enqueue_scripts', 'redressPublicAssets');
+add_action('admin_enqueue_scripts', 'redressAdminAssets');
+add_action('login_enqueue_scripts', 'redressAccessAssets', 10);
 
 
 /* -------------------------------------------------------------------------- */
+
+
+/**
+ * Determine Internet Explorer version (Not exactly 100% full-proof; but close
+ * enough for our general purposes).
+ *
+ * @return integer|boolean Version number, or false if not Internet Explorer.
+ * @access public
+ */
+function getIeBrowserVersion()
+{
+    preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
+    if (count($matches) < 2) {
+        preg_match('/Trident\/\d{1,2}.\d{1,2}; rv:([0-9]*)/', $_SERVER['HTTP_USER_AGENT'], $matches);
+    } elseif /* IE. */ (count($matches) > 1) {
+        return $matches[1];
+    }
+
+    return false;
+}
+
+
+  /* -- */
 
 
 /**
@@ -58,16 +81,12 @@ function redressSettingsLink($links)
  *
  * @access public
  */
-function registerAccessAssets()
+function redressAccessAssets()
 {
-    wp_register_style('redress-access-style', REDRESS_ASSETS_URL .'/min/access.min.css', [], false, 'all');
-    wp_register_script(
-        'redress-access-script',
-        REDRESS_ASSETS_URL .'/min/access.min.js',
-        [ 'jquery' ], // Required dependency for WP scripts.
-        false,
-        true
-    );
+    wp_register_style('redress-access-style', REDRESS_ASSETS_URL .'/min/access.css', [], false, 'all');
+    wp_register_script('redress-access-script', REDRESS_ASSETS_URL .'/min/access.js', [
+        'jquery'
+    ], false, true);
 
     wp_enqueue_style('redress-access-style');
     wp_enqueue_script('redress-access-script');
@@ -80,31 +99,17 @@ function registerAccessAssets()
  * @return void
  * @access public
  */
-function loadAdminAssets($hook)
+function redressAdminAssets()
 {
-    wp_register_style(
-        'redress-admin-style',
-        REDRESS_ASSETS_URL ."/min/admin.min.css",
-        array(),
-        false,
-        'all'
-    );
+    wp_register_style('redress-admin-style', REDRESS_ASSETS_URL ."/min/admin.css", [], false, 'all');
 
-    // wp_register_script(
-    //     'redress-core-script',
-    //     REDRESS_ASSETS_URL ."/min/redress.min.js",
-    //     array('jquery-ui-sortable'),
-    //     false,
-    //     true
-    // );
+    // wp_register_script('redress-core-script', REDRESS_ASSETS_URL ."/min/redress.js", [
+    //     'jquery-ui-sortable'
+    // ], false, true);
 
-    // wp_register_script(
-    //     'redress-admin-script',
-    //     REDRESS_ASSETS_URL ."/min/redress-admin.min.js",
-    //     array('redress-core-script'),
-    //     false,
-    //     true
-    // );
+    // wp_register_script('redress-admin-script', REDRESS_ASSETS_URL ."/min/redress-admin.js", [
+    //     'redress-core-script'
+    // ], false, true);
 
     wp_enqueue_style('redress-admin-style');
     // wp_enqueue_script('redress-core-script');
@@ -118,44 +123,63 @@ function loadAdminAssets($hook)
  * @return void
  * @access public
  */
-function loadSiteAssets($hook)
+function redressPublicAssets()
 {
-    // Unregister WP styles.
+    /* jQuery version we want. */
+    $jqv = '3.1.1';
+
+    /* Unregister WP styles. */
     wp_deregister_script('jquery');
 
-    // Unregister WP styles.
-    wp_deregister_style('admin-bar');
-    wp_deregister_style('boxes');
+    /**
+     * "Dumbed Down" jQuery Version for older IE.
+     */
+    if (function_exists('getIeBrowserVersion')) {
+        /**
+         * Determine Internet Explorer version (Not exactly 100% full-proof; but
+         * close enough for our general purposes).
+         *
+         * @return integer|boolean Version number, or false if not Internet Explorer.
+         * @access public
+         */
+        $ieVersion = getIeBrowserVersion();
+        if ($ieVersion && $ieVersion < 9) {
+            $jqv = '1.12.4'; // IE 9 and below (Just in case they still exist).
+        }
+    }
 
-    wp_register_style(
-        'base',
-        REDRESS_ASSETS_URL ."/min/base.min.css",
-        array(),
-        false,
-        false
-    );
+    wp_register_script('jquery', "//ajax.googleapis.com/ajax/libs/jquery/{$jqv}/jquery.min.js", [], false, true);
 
-    wp_register_script(
-        'boot',
-        REDRESS_ASSETS_URL .'/min/boot.min.js',
-        array(),
-        false,
-        false
-    );
+    // wp_register_style(
+    //     'base',
+    //     REDRESS_ASSETS_URL ."/min/base.css",
+    //     [],
+    //     false,
+    //     false
+    // );
 
-    // Core libraries and functions
-    wp_register_script(
-        'redress',
-        REDRESS_ASSETS_URL ."/min/redress.min.js",
-        array('boot'),
-        false,
-        true
-    );
+    // wp_register_script(
+    //     'boot',
+    //     REDRESS_ASSETS_URL .'/min/boot.js',
+    //     [],
+    //     false,
+    //     false
+    // );
 
-    wp_enqueue_style('base');
+    // // Core libraries and functions
+    // wp_register_script(
+    //     'redress',
+    //     REDRESS_ASSETS_URL ."/min/redress.js",
+    //     array('boot'),
+    //     false,
+    //     true
+    // );
 
-    wp_enqueue_script('boot');
-    wp_enqueue_script('redress');
+    // wp_enqueue_style('base');
+
+    wp_enqueue_script('jquery');
+    // wp_enqueue_script('boot');
+    // wp_enqueue_script('redress');
 }
 
 /* <> */

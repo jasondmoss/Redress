@@ -71,10 +71,10 @@ module.exports = function (grunt) {
 
             main: {
                 options: {
-                    sourceMapName: '../min/access.min.js.map'
+                    sourceMapName: '../min/access.js.map'
                 },
                 files: {
-                    "../min/access.min.js": [
+                    "../min/access.js": [
                         "scripts/access.js"
                     ]
                 }
@@ -99,12 +99,12 @@ module.exports = function (grunt) {
                 files: {
 
                     /* Access/Login. */
-                    "../min/access.min.css": [
+                    "../min/access.css": [
                         "styles/access.css"
                     ],
 
                     /* Administration. */
-                    "../min/admin.min.css": [
+                    "../min/admin.css": [
                         "styles/admin.css"
                     ]
                 }
@@ -128,8 +128,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     src: [
-                        "../min/*.min.css",
-                        "../min/*.min.js"
+                        "../min/*.css",
+                        "../min/*.js"
                     ]
                 }
             }
