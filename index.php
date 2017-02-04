@@ -7,14 +7,14 @@
  * @subpackage MustUsePlugin|Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>
  * @copyright  2017 Jason D. Moss. All rights freely given.
- * @license    https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [WTFPL License]
+ * @license    https://github.com/jasondmoss/mu-plugins/blob/master/LICENSE.md [WTFPL License]
  * @link       https://github.com/jasondmoss/mu-plugins/
  *
  * - - - - -
  *
  * Plugin Name: Redress
  * Plugin URI:  https://github.com/jasondmoss/mu-plugins/
- * Description: Bootstrapping processes to clean-up, streamline and enhance WordPress.
+ * Description: Bootstrapping processes to clean-up, streamline and otherwise enhance WordPress.
  * Version:     0.0.3
  * Author:      Jason D. Moss <jason@jdmlabs.com>
  * Author URI:  https://www.jdmlabs.com/
@@ -40,14 +40,8 @@ define('REDRESS_URL', plugin_dir_url(__FILE__) .'redress/');
 define('REDRESS_ASSETS_DIR', REDRESS_DIR .'assets');
 define('REDRESS_ASSETS_URL', REDRESS_URL .'assets');
 
-/**
- * Load and initialize all available classes.
- *
- * Need to make the instance(s) object {$k} a GLOBAL for it's general use
- * throughout WordPress. Ugh.
- */
-foreach ([ 'Development', 'Bootstrap', 'Cleanup', 'Access', ] as $file) {
-    include REDRESS_DIR ."{$file}.php";
+foreach (glob(__DIR__ .'/redress/*{*,/*}.php', GLOB_BRACE) as $file) {
+    include $file;
 }
 
 /* <> */

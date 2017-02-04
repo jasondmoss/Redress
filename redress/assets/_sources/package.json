@@ -2,7 +2,7 @@
     "name": "mu-plugins",
     "version": "0.0.3",
     "copyright": "2017 Jason D. Moss. All rights freely given.",
-    "license": "https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md [WTFPL License]",
+    "license": "https://github.com/jasondmoss/mu-plugins/blob/master/LICENSE.md [WTFPL License]",
     "description": "...",
     "homepage": "https://github.com/jasondmoss/mu-plugins",
     "bugs": "https://github.com/jasondmoss/mu-plugins/issues",
