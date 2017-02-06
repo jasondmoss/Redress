@@ -342,13 +342,14 @@ input#wp-submit {
   }
 
   .login #nav {
+    margin-top: 1em;
     margin-left: 12%;
   }
 
   .login #nav a,
   .login #backtoblog a {
     display: block;
-    padding: 1em;
+    padding: .5em 1em;
     text-align: right;
   }
 }
