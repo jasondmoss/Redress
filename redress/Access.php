@@ -12,11 +12,6 @@
  * @link       https://github.com/jasondmoss/mu-plugins/
  */
 
-global $bloginfo;
-foreach ([ 'name', 'description', 'url' ] as $param) {
-    $bloginfo[$param] = get_bloginfo($param);
-}
-
 /* Customize the Login page. */
 add_filter('login_headerurl', 'replaceLoginHeaderUrl');
 add_filter('login_headertitle', 'replaceLoginHeaderTitle');
