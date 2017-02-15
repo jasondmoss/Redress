@@ -27,8 +27,8 @@
 /**
  * Check/Confirm PHP version.
  */
-if (version_compare(PHP_VERSION, '5.6', '<')) {
-    die('Redress requires at least PHP 5.6. Your installed version is '. PHP_VERSION);
+if (version_compare(PHP_VERSION, '5.6.30', '<')) {
+    die('Redress requires at least PHP 5.6.30. Your installed version is '. PHP_VERSION);
 }
 
 /**
