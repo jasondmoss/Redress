@@ -40,6 +40,11 @@ define('REDRESS_URL', plugin_dir_url(__FILE__) .'redress/');
 define('REDRESS_ASSETS_DIR', REDRESS_DIR .'assets');
 define('REDRESS_ASSETS_URL', REDRESS_URL .'assets');
 
+global $bloginfo;
+foreach ([ 'name', 'description', 'url' ] as $param) {
+    $bloginfo[$param] = get_bloginfo($param);
+}
+
 foreach (glob(__DIR__ .'/redress/*{*,/*}.php', GLOB_BRACE) as $file) {
     include $file;
 }
