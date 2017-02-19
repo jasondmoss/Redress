@@ -1,4 +1,4 @@
 Must-Use Plugins
 ================
 
-Must-Use Plug-ins for bootstrapping personal WordPress projects.
+Bootstrapping processes to clean-up, streamline and otherwise fix + enhance WordPress.

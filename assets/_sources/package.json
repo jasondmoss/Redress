@@ -1,6 +1,6 @@
 {
     "name": "mu-plugins",
-    "version": "0.3.2",
+    "version": "0.5.0",
     "copyright": "2017 Jason D. Moss. All rights freely given.",
     "license": "https://github.com/jasondmoss/mu-plugins/blob/master/LICENSE.md [WTFPL License]",
     "description": "...",
