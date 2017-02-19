@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ...
+ * General WordPress Clean-Up.
  *
  * @category   CleanUp
  * @package    WordPress
@@ -16,12 +16,6 @@ namespace Redress;
 
 class Cleanup
 {
-
-    /**
-     *
-     */
-    // use \Redress\GlobalProperties;
-
 
     /**
      * Class initializer.

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WordPress Log-In Enhancements.
+ * WordPress Access (Log-In) Enhancements.
  *
  * @category   Access
  * @package    WordPress
@@ -28,10 +28,10 @@ class Access
      *
      * @access public
      */
-    public function __construct($redressAssetsUrl, $wpMetaData)
+    public function __construct($redressAssetsUrl, $wordpressMetaData)
     {
         $this->assetsUrl = $redressAssetsUrl;
-        $this->meta = $wpMetaData;
+        $this->wpMeta = $wordpressMetaData;
 
         add_action('login_enqueue_scripts', [$this, 'redressAccessAssets']);
 
@@ -61,8 +61,8 @@ class Access
      */
     public function redressAccessAssets()
     {
-        wp_register_style('redress-access-style', "{$this->assetsUrl}/min/access.css", [], false, 'all');
-        wp_register_script('redress-access-script', "{$this->assetsUrl}/min/access.js", [
+        wp_register_style('redress-access-style', "{$this->assetsUrl}/access.css", [], false, 'all');
+        wp_register_script('redress-access-script', "{$this->assetsUrl}/access.js", [
             'jquery'
         ], false, true);
 
@@ -79,7 +79,7 @@ class Access
      */
     public function replaceLoginHeaderUrl()
     {
-        return $this->meta->url;
+        return $this->wpMeta->url;
     }
 
 
@@ -91,7 +91,7 @@ class Access
      */
     public function replaceLoginHeaderTitle()
     {
-        return $this->meta->name;
+        return $this->wpMeta->name;
     }
 
 
@@ -102,8 +102,8 @@ class Access
      */
     public function addNewHeaderTitle()
     {
-        echo "<h2>{$this->meta->name}</h2>\n";
-        echo "<h3>{$this->meta->description}</h3>\n";
+        echo "<h2>{$this->wpMeta->name}</h2>\n";
+        echo "<h3>{$this->wpMeta->description}</h3>\n";
     }
 
 

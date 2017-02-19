@@ -1,9 +1,9 @@
 <?php
 
 /**
- * ...
+ * Global Properties.
  *
- * @category   Access
+ * @category   Properties
  * @package    WordPress
  * @subpackage Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>
@@ -78,25 +78,14 @@ trait GlobalProperties
      * @access protected
      */
     protected $meta;
-    /*public function __construct(
-        $redressBaseDir,
-        $redressBaseUrl,
-        $redressAssetsDir,
-        $redressAssetsUrl,
-        $jQueryVersion,
-        $isDevelopment,
-        $bloginfo
-    ) {
-        $this->jqv = $jQueryVersion;
 
-        $this->baseDir = $redressBaseDir;
-        $this->baseUrl = $redressBaseUrl;
-        $this->assetsDir = $redressAssetsDir;
-        $this->assetsUrl = $redressAssetsUrl;
-        $this->jqv = $jQueryVersion;
-        $this->devel = $isDevelopment;
-        $this->meta = $bloginfo;
-    }*/
+    /**
+     * ...
+     *
+     * @var string
+     * @access protected
+     */
+    private $redress;
 }
 
 /* <> */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ...
+ * Development.
  *
  * @category   Development
  * @package    WordPress

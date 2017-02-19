@@ -40,6 +40,7 @@ use Redress\Access;
 use Redress\Bootstrap;
 use Redress\Cleanup;
 use Redress\Development;
+use Redress\Settings;
 
 /**
  * Register given function as __autoload() implementation.
@@ -76,24 +77,32 @@ function redressInitializer()
 {
     global $devel;
 
-    $redress = plugin_basename(__FILE__);
-    $redressBaseDir = plugin_dir_path(__FILE__);
-    $redressBaseUrl = plugins_url();
+    $pluginBasename = plugin_basename(__FILE__);
+    $pluginBaseDir = plugin_dir_path(__FILE__);
+    $pluginBaseUrl = plugin_dir_url(__FILE__);
+    $pluginVersion = '0.5.0';
 
-    $redressAssetsDir = "{$redressBaseDir}assets";
-    $redressAssetsUrl = "{$redressBaseUrl}/assets";
+    $redressAssetsDir = "{$pluginBaseDir}assets";
+    $redressAssetsUrl = "{$pluginBaseUrl}assets/min";
+    $redressImageUrl = "{$pluginBaseUrl}assets/image";
+    $redressLanguageDir = "{$pluginBaseUrl}assets/language";
+
+    /**
+     * @see https://developers.google.com/speed/libraries/#jquery
+     */
     $jQueryVersion = '3.1.1';
 
     foreach ([
         'name', 'description', 'url', 'admin_email', 'charset', 'language', 'stylesheet_directory', 'template_url'
     ] as $param) {
-        $wpMetaData[$param] = get_bloginfo($param);
+        $wordpressMetadata[$param] = get_bloginfo($param);
     }
 
-    new Bootstrap($redressAssetsDir, $redressAssetsUrl, $jQueryVersion);
+    new Bootstrap($redressLanguageDir, $redressAssetsUrl, $jQueryVersion);
     new Development($devel);
     new Cleanup();
-    new Access($redressAssetsUrl, (object) $wpMetaData);
+    new Access($redressAssetsUrl, (object) $wordpressMetadata);
+    new Settings($pluginBasename, $pluginVersion);
 }
 
 add_action('plugins_loaded', 'redressInitializer');

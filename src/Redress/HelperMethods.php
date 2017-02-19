@@ -1,9 +1,9 @@
 <?php
 
 /**
- * ...
+ * Miscellaneous Helper Methods.
  *
- * @category   Trait
+ * @category   Helpers
  * @package    WordPress
  * @subpackage Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>

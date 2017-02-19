@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Bootstrap Must-Use Plug-In.
+ * Bootstrap.
  *
  * @category   Bootstrap
  * @package    WordPress
@@ -33,13 +33,14 @@ class Bootstrap
      *
      * @access public
      */
-    public function __construct($redressAssetsDir, $redressAssetsUrl, $jQueryVersion)
+    public function __construct($redressLanguageDir, $redressAssetsUrl, $jQueryVersion)
     {
-        $this->assetsDir = $redressAssetsDir;
+        $this->langDir = $redressLanguageDir;
         $this->assetsUrl = $redressAssetsUrl;
         $this->jqv = $jQueryVersion;
 
-        add_action('init', [$this, 'redressLoadTextDomain']);
+        add_action('plugins_loaded', [$this, 'redressLanguageFiles']);
+
         add_action('wp_enqueue_scripts', [$this, 'redressPublicAssets']);
         add_action('admin_enqueue_scripts', [$this, 'redressAdminAssets']);
     }
@@ -54,9 +55,9 @@ class Bootstrap
      * @return void
      * @access public
      */
-    public function redressLoadTextDomain()
+    public function redressLanguageFiles()
     {
-        load_plugin_textdomain('redress', false, "{$this->assetsDir}language/");
+        load_plugin_textdomain('redress', false, $this->langDir);
     }
 
 
@@ -85,13 +86,13 @@ class Bootstrap
      */
     public function redressAdminAssets()
     {
-        wp_register_style('redress-admin-style', "{$this->assetsUrl}/min/admin.css", [], false, 'all');
+        wp_register_style('redress-admin-style', "{$this->assetsUrl}/admin.css", [], false, 'all');
 
-        // wp_register_script('redress-core-script', REDRESS_ASSETS_URL ."/min/redress.js", [
+        // wp_register_script('redress-core-script', "{$this->assetsUrl}/redress.js", [
         //     'jquery-ui-sortable'
         // ], false, true);
 
-        // wp_register_script('redress-admin-script', REDRESS_ASSETS_URL ."/min/redress-admin.js", [
+        // wp_register_script('redress-admin-script', "{$this->assetsUrl}/redress-admin.js", [
         //     'redress-core-script'
         // ], false, true);
 
