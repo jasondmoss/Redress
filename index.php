@@ -4,22 +4,22 @@
  * WordPress Redress.
  *
  * @package    WordPress
- * @subpackage MustUsePlugin
+ * @subpackage Redress
  * @author     Jason D. Moss <jason@jdmlabs.com>
  * @copyright  2017 Jason D. Moss. All rights freely given.
- * @license    https://github.com/jasondmoss/mu-plugins/blob/master/LICENSE.md [WTFPL License]
- * @link       https://github.com/jasondmoss/mu-plugins/
+ * @license    https://github.com/jasondmoss/redress/blob/master/LICENSE.md [WTFPL License]
+ * @link       https://github.com/jasondmoss/redress/
  *
  * - - - - -
  *
  * Plugin Name: Redress
- * Plugin URI:  https://github.com/jasondmoss/mu-plugins/
+ * Plugin URI:  https://github.com/jasondmoss/redress/
  * Description: Bootstrapping processes to clean-up, streamline and otherwise fix + enhance WordPress.
  * Version:     0.5.0
  * Author:      Jason D. Moss <jason@jdmlabs.com>
  * Author URI:  https://www.jdmlabs.com/
  * License:     WTFPL License
- * License URI: https://raw.githubusercontent.com/jasondmoss/mu-plugins/master/LICENSE.md
+ * License URI: https://raw.githubusercontent.com/jasondmoss/redress/master/LICENSE.md
  * Domain Path: /languages
  * Text Domain: redress
  */
@@ -76,10 +76,11 @@ function redressInitializer()
 {
     global $devel;
 
-    $redress = __FILE__;
-    $redressBaseDir = dirname(__FILE__);
-    $redressBaseUrl = content_url('/mu-plugins');
-    $redressAssetsDir = "{$redressBaseDir}/assets";
+    $redress = plugin_basename(__FILE__);
+    $redressBaseDir = plugin_dir_path(__FILE__);
+    $redressBaseUrl = plugins_url();
+
+    $redressAssetsDir = "{$redressBaseDir}assets";
     $redressAssetsUrl = "{$redressBaseUrl}/assets";
     $jQueryVersion = '3.1.1';
 
@@ -95,6 +96,6 @@ function redressInitializer()
     new Access($redressAssetsUrl, (object) $wpMetaData);
 }
 
-add_action('muplugins_loaded', 'redressInitializer');
+add_action('plugins_loaded', 'redressInitializer');
 
 /* <> */

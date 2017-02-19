@@ -1,11 +1,11 @@
 {
-    "name": "mu-plugins",
+    "name": "redress",
     "version": "0.5.0",
     "copyright": "2017 Jason D. Moss. All rights freely given.",
-    "license": "https://github.com/jasondmoss/mu-plugins/blob/master/LICENSE.md [WTFPL License]",
+    "license": "https://github.com/jasondmoss/redress/blob/master/LICENSE.md [WTFPL License]",
     "description": "...",
-    "homepage": "https://github.com/jasondmoss/mu-plugins",
-    "bugs": "https://github.com/jasondmoss/mu-plugins/issues",
+    "homepage": "https://github.com/jasondmoss/redress",
+    "bugs": "https://github.com/jasondmoss/redress/issues",
     "author": {
         "name": "Jason D. Moss",
         "email": "jason@jdmlabs.com",
