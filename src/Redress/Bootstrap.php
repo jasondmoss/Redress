@@ -62,23 +62,6 @@ class Bootstrap
 
 
     /**
-     * Add a "Settings" link on the plugins.php page.
-     *
-     * @param array $links
-     *
-     * @return array
-     * @access public
-     */
-    public function redressSettingsLink($links)
-    {
-        $settingsLink = '<a href="'. admin_url('admin.php?page=redress') .'">Settings</a>';
-        array_unshift($links, $settingsLink);
-
-        return $links;
-    }
-
-
-    /**
      * Custom Script and Style.
      *
      * @return void
@@ -136,7 +119,7 @@ class Bootstrap
 
         // wp_register_style(
         //     'base',
-        //     REDRESS_ASSETS_URL ."/min/base.css",
+        //     "{$this->assetsUrl}/base.css",
         //     [],
         //     false,
         //     false
@@ -144,7 +127,7 @@ class Bootstrap
 
         // wp_register_script(
         //     'boot',
-        //     REDRESS_ASSETS_URL .'/min/boot.js',
+        //     "{$this->assetsUrl}/boot.js',
         //     [],
         //     false,
         //     false
@@ -153,7 +136,7 @@ class Bootstrap
         // // Core libraries and functions
         // wp_register_script(
         //     'redress',
-        //     REDRESS_ASSETS_URL ."/min/redress.js",
+        //     "{$this->assetsUrl}/redress.js",
         //     array('boot'),
         //     false,
         //     true
