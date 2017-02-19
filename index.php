@@ -33,6 +33,17 @@ if (version_compare(PHP_VERSION, '5.6.30', '<')) {
     die('Redress requires at least PHP 5.6.30. Your installed version is '. PHP_VERSION);
 }
 
+
+/**
+ * ClassLoader implements a PSR-4 class loader.
+ *
+ * @uses /vendor/composer/ClassLoader.php
+ *
+ * @see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
+ */
+include_once __DIR__ .'/vendor/autoload.php';
+
+
 /**
  * ...
  */
@@ -40,35 +51,7 @@ use Redress\Access;
 use Redress\Bootstrap;
 use Redress\Cleanup;
 use Redress\Development;
-use Redress\Settings;
-
-/**
- * Register given function as __autoload() implementation.
- *
- * @param callable $function Autoload function.
- * @param boolean  $throw    Throw exception on register fail? Default true
- * @param boolean  $prepend  Prepend the autoloader on the autoload queue? Default false
- *
- * @see http://php.net/manual/en/function.spl-autoload-register.php
- */
-spl_autoload_register('redressAutoloader');
-
-
-/**
- * Custom autoloader.
- *
- * @param string $klass
- */
-function redressAutoloader($klass)
-{
-    if (false !== strPos($klass, 'Redress')) {
-        $klassDir = realPath(plugin_dir_path(__FILE__)) . DIRECTORY_SEPARATOR .'src'. DIRECTORY_SEPARATOR;
-        $klassFile = str_replace('\\', DIRECTORY_SEPARATOR, $klass) .'.php';
-
-        require_once "{$klassDir}{$klassFile}";
-    }
-}
-
+use Redress\Settings\Register as Settings;
 
 /**
  * Initialize.

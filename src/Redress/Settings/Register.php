@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Settings.
+ * Register.
  *
  * @category   Settings
  * @package    WordPress
@@ -12,9 +12,9 @@
  * @link       https://github.com/jasondmoss/redress/
  */
 
-namespace Redress;
+namespace Redress\Settings;
 
-class Settings
+class Register
 {
 
     /**
@@ -57,7 +57,7 @@ class Settings
             $redressLink['modules'] = '<a href="options-general.php?page=redress-settings#modules">'.
                 __('Modules', 'redress') .'</a>';
 
-            // Let's the order to: Settings, Modules, [WP Defined]
+            // Let's set the order to: Settings, Modules, [WP Defined]
             array_unshift($links, $redressLink['modules']);
             array_unshift($links, $redressLink['settings']);
             array_merge($redressLink, $links);

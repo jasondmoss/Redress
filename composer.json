@@ -1,0 +1,30 @@
+{
+    "name": "jasondmoss/redress",
+    "description": "Bootstrapping processes to clean-up, streamline and otherwise fix + enhance WordPress.",
+    "version": "0.5.0",
+    "type": "plugin",
+    "keywords": [
+        "wordpress",
+        "plugin"
+    ],
+    "homepage": "https://github.com/jasondmoss/redress",
+    "authors": [
+        {
+            "name": "Jason D. Moss",
+            "email": "jason@jdmlabs.com",
+            "homepage": "https://www.jdmlabs.com/"
+        }
+    ],
+    "support": {
+        "email": "support@jdmlabs.com",
+        "issues": "https://github.com/jasondmoss/redress/issues"
+    },
+    "require": {
+        "php": ">=5.6.30"
+    },
+    "autoload": {
+        "psr-4": {
+            "Redress\\": "src/Redress/"
+        }
+    }
+}
