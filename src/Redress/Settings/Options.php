@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Sections.
+ * Options.
  *
  * @category   Settings
  * @package    WordPress
@@ -14,7 +14,7 @@
 
 namespace Redress\Settings;
 
-class Sections
+class Options
 {
 
     /**
@@ -35,30 +35,6 @@ class Sections
 
 
     /* -- */
-
-
-    /**
-     * Register and define general settings.
-     *
-     * @return void
-     * @access private
-     */
-    private function generalSection()
-    {
-        /**/
-    }
-
-
-    /**
-     * Register and define general settings.
-     *
-     * @return void
-     * @access private
-     */
-    private function modulesSection()
-    {
-        /**/
-    }
 }
 
 /* <> */

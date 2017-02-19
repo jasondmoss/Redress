@@ -15,7 +15,7 @@
 namespace Redress;
 
 /**
- * ...
+ * Global Properties.
  *
  * @trait
  */
@@ -23,7 +23,7 @@ trait GlobalProperties
 {
 
     /**
-     * ...
+     * Absolute path to plug-in assets.
      *
      * @var string
      * @access protected
@@ -31,7 +31,7 @@ trait GlobalProperties
     protected $assetsDir;
 
     /**
-     * ...
+     * Absolute URL to plug-in assets.
      *
      * @var string
      * @access protected
@@ -39,7 +39,7 @@ trait GlobalProperties
     protected $assetsUrl;
 
     /**
-     * ...
+     * Absolute path to plug-in.
      *
      * @var string
      * @access protected
@@ -47,7 +47,7 @@ trait GlobalProperties
     protected $baseDir;
 
     /**
-     * ...
+     * Absolute URL to plug-in.
      *
      * @var string
      * @access protected
@@ -55,7 +55,7 @@ trait GlobalProperties
     protected $baseUrl;
 
     /**
-     * ...
+     * Are we in "Development" mode?
      *
      * @var boolean
      * @access protected
@@ -67,12 +67,21 @@ trait GlobalProperties
      *
      * @var string
      * @access protected
+     *
      * @see https://developers.google.com/speed/libraries/#jquery
      */
     protected $jqv;
 
     /**
-     * ...
+     * Absolute path to plug-in language files.
+     *
+     * @var string
+     * @access protected
+     */
+    protected $langDir;
+
+    /**
+     * Objectified bloginfo() data.
      *
      * @var object
      * @access protected
@@ -80,12 +89,20 @@ trait GlobalProperties
     protected $meta;
 
     /**
-     * ...
+     * Plug-in basename.
      *
      * @var string
      * @access protected
      */
-    private $redress;
+    protected $redress;
+
+    /**
+     * Plug-in version.
+     *
+     * @var string
+     * @access protected
+     */
+    protected $version;
 }
 
 /* <> */

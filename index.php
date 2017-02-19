@@ -20,7 +20,7 @@
  * Author URI:  https://www.jdmlabs.com/
  * License:     WTFPL License
  * License URI: https://raw.githubusercontent.com/jasondmoss/redress/master/LICENSE.md
- * Domain Path: /languages
+ * Domain Path: /assets/language
  * Text Domain: redress
  */
 
@@ -33,7 +33,6 @@ if (version_compare(PHP_VERSION, '5.6.30', '<')) {
     die('Redress requires at least PHP 5.6.30. Your installed version is '. PHP_VERSION);
 }
 
-
 /**
  * ClassLoader implements a PSR-4 class loader.
  *
@@ -43,10 +42,6 @@ if (version_compare(PHP_VERSION, '5.6.30', '<')) {
  */
 include_once __DIR__ .'/vendor/autoload.php';
 
-
-/**
- * ...
- */
 use Redress\Access;
 use Redress\Bootstrap;
 use Redress\Cleanup;

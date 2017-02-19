@@ -14,6 +14,8 @@
 
 namespace Redress\Settings;
 
+use Redress\Settings\Page as SettingsPage;
+
 class Register
 {
 
@@ -34,7 +36,7 @@ class Register
         $this->version = $redressVersion;
 
         add_filter('plugin_action_links', [$this, 'redressSettingsLink'], 10, 2);
-        add_action('admin_menu', [$this, 'redressSettingsMenu']);
+        add_action('admin_menu', [$this, 'registerSettingsPage']);
     }
 
 
@@ -73,75 +75,18 @@ class Register
      * @return void
      * @access public
      */
-    public function redressSettingsMenu()
+    public function registerSettingsPage()
     {
+        $settingsPage = new SettingsPage($this->version);
         add_options_page(
             __('Redress Settings', 'redress'),
             __('Redress', 'redress'),
             'manage_options',
             'redress-settings',
-            [$this, 'redressSettingsPage']
+            [$settingsPage, 'redressSettingsPage']
         );
 
-        add_action('admin_init', [$this, 'registerRedressSettings']);
-    }
-
-
-    /**
-     * Create the admin settings page.
-     *
-     * @return void
-     * @access public
-     */
-    public function redressSettingsPage()
-    {
-        ?>
-
-<div class="wrap">
-  <h2><?php _e("Redress <small>(v{$this->version})</small> Settings", 'redress'); ?></h2><hr>
-</div>
-
-        <?php
-    }
-
-
-    /* -- */
-
-
-    /**
-     * Register all of our settings 'sections'.
-     *
-     * @return void
-     * @access public
-     */
-    public function registerRedressSettings()
-    {
-        $this->generalSection();
-        $this->modulesSection();
-    }
-
-
-    /**
-     * Register and define general settings.
-     *
-     * @return void
-     * @access private
-     */
-    private function generalSection()
-    {
-        /**/
-    }
-
-
-    /**
-     * Register and define general settings.
-     *
-     * @return void
-     * @access private
-     */
-    private function modulesSection()
-    {
-        /**/
+        add_action('admin_init', [$settingsPage, 'settingsPageSections']);
     }
 }
 
