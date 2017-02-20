@@ -64,12 +64,12 @@ hr {
 }
 
 ::selection {
-  background: #ffe500;
+  background: #ffd519;
   color: #000;
 }
 
 ::-moz-selection {
-  background: #ffe500;
+  background: #ffd519;
   color: #000;
 }
 

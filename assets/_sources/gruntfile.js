@@ -19,7 +19,7 @@ module.exports = function (grunt) {
             " *\n"+
             " * <%= pkg.description %>\n *\n"+
             " * Package    WordPress\n"+
-            " * Subpackage MustUsePlugin|Redress\n"+
+            " * Subpackage Redress\n"+
             " * Version    <%= pkg.version %>\n"+
             " * Author     <%= pkg.author.name %> <<%= pkg.author.email %>>\n"+
             " * Copyright  <%= pkg.copyright %>\n"+
@@ -39,7 +39,8 @@ module.exports = function (grunt) {
         jshint: {
             files: [
                 "gruntfile.js",
-                "scripts/*.js"
+                "scripts/*.js",
+                "scripts/modules/**/*.js"
             ],
 
             options: {
@@ -71,11 +72,23 @@ module.exports = function (grunt) {
 
             main: {
                 options: {
-                    sourceMapName: '../min/access.js.map'
+                    sourceMapName: '../min/redress-access.js.map'
                 },
                 files: {
-                    "../min/access.js": [
+
+                    /* Access/Login. */
+                    "../min/redress-access.js": [
                         "scripts/access.js"
+                    ],
+
+                    /* Administration. */
+                    "../min/redress-admin.js": [
+                        "scripts/admin.js"
+                    ],
+
+                    /* Modules. */
+                    "../min/redress-modules.js": [
+                        "scripts/modules/**/*.js"
                     ]
                 }
             }
@@ -99,13 +112,18 @@ module.exports = function (grunt) {
                 files: {
 
                     /* Access/Login. */
-                    "../min/access.css": [
+                    "../min/redress-access.css": [
                         "styles/access.css"
                     ],
 
                     /* Administration. */
-                    "../min/admin.css": [
+                    "../min/redress-admin.css": [
                         "styles/admin.css"
+                    ],
+
+                    /* Modules. */
+                    "../min/redress-modules.css": [
+                        "styles/modules/**/*.css"
                     ]
                 }
             }
@@ -128,8 +146,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     src: [
-                        "../min/*.css",
-                        "../min/*.js"
+                        "../min/redress-*.css",
+                        "../min/redress-*.js"
                     ]
                 }
             }
@@ -153,14 +171,16 @@ module.exports = function (grunt) {
 
             styles: {
                 files: [
-                    "styles/*.css"
+                    "styles/*.css",
+                    "styles/modules/**/*.css"
                 ],
                 tasks: [ "cssmin", "usebanner" ]
             },
 
             scripts: {
                 files: [
-                    "scripts/*.js"
+                    "scripts/*.js",
+                    "scripts/modules/**/*.js"
                 ],
                 tasks: [ "jshint", "uglify", "usebanner" ]
             }

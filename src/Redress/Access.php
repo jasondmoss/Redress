@@ -61,10 +61,8 @@ class Access
      */
     public function redressAccessAssets()
     {
-        wp_register_style('redress-access-style', "{$this->assetsUrl}/access.css", [], false, 'all');
-        wp_register_script('redress-access-script', "{$this->assetsUrl}/access.js", [
-            'jquery'
-        ], false, true);
+        wp_register_style('redress-access-style', "{$this->assetsUrl}/redress-access.css", [], false, 'all');
+        wp_register_script('redress-access-script', "{$this->assetsUrl}/redress-access.js", [], false, true);
 
         wp_enqueue_style('redress-access-style');
         wp_enqueue_script('redress-access-script');

@@ -14,7 +14,8 @@
 
 namespace Redress\Settings;
 
-use Redress\Settings\Page as SettingsPage;
+use Redress\Settings\Manager as ManagerPage;
+use Redress\Settings\Options as OptionsPage;
 
 class Register
 {
@@ -35,8 +36,8 @@ class Register
         $this->redress = $pluginBasename;
         $this->version = $redressVersion;
 
-        add_filter('plugin_action_links', [$this, 'redressSettingsLink'], 10, 2);
-        add_action('admin_menu', [$this, 'registerSettingsPage']);
+        add_filter('plugin_action_links', [$this, 'redressPluginLinks'], 10, 2);
+        add_action('admin_menu', [$this, 'redressPluginOptions']);
     }
 
 
@@ -48,20 +49,20 @@ class Register
      *
      * @access public
      */
-    public function redressSettingsLink($links, $file)
+    public function redressPluginLinks($links, $file)
     {
         if ($file == $this->redress) {
-            // Settings Link.
-            $redressLink['settings'] = '<a href="options-general.php?page=redress-settings">'.
-                __('Settings', 'redress') .'</a>';
+            // Plugin Options Link.
+            $redressLink['options'] = '<a href="options-general.php?page=redress-options">'.
+                __('Plugin Options', 'redress') .'</a>';
 
-            // Modules Link.
-            $redressLink['modules'] = '<a href="options-general.php?page=redress-settings#modules">'.
-                __('Modules', 'redress') .'</a>';
+            // Redress Manager Link.
+            $redressLink['manage'] = '<a href="options-general.php?page=redress-manager">'.
+                __('Manage', 'redress') .'</a>';
 
-            // Let's set the order to: Settings, Modules, [WP Defined]
-            array_unshift($links, $redressLink['modules']);
-            array_unshift($links, $redressLink['settings']);
+            // Let's set the order to: Manage, Options, [WP Defined]
+            array_unshift($links, $redressLink['options']);
+            array_unshift($links, $redressLink['manage']);
             array_merge($redressLink, $links);
         }
 
@@ -75,18 +76,46 @@ class Register
      * @return void
      * @access public
      */
-    public function registerSettingsPage()
+    public function redressPluginOptions()
     {
-        $settingsPage = new SettingsPage($this->version);
+        $managerPage = new Manager($this->version);
+        $optionsPage = new Options($this->version);
+
         add_options_page(
-            __('Redress Settings', 'redress'),
-            __('Redress', 'redress'),
+            __('Redress Options', 'redress'),
+            __('Redress Options', 'redress'),
             'manage_options',
-            'redress-settings',
-            [$settingsPage, 'redressSettingsPage']
+            'redress-options',
+            [$optionsPage, 'redressOptionsPage']
         );
 
-        add_action('admin_init', [$settingsPage, 'settingsPageSections']);
+        /**
+         * Register a custom menu page.
+         */
+        add_menu_page(
+            __('Redress Manager', 'redress'),
+            __('Redress Manager', 'redress'),
+            'manage_options',
+            'redress-manager',
+            [$managerPage, 'redressManagerPage'],
+            'dashicons-schedule',
+            '59.1'
+        );
+
+        add_submenu_page(
+            'redress-manager',
+            __('Redress Options', 'redress'),
+            __('Redress Options', 'redress'),
+            'manage_options',
+            'options-general.php?page=redress-options'
+        );
+
+        foreach ([
+            [$managerPage, 'redressManagerSections'],
+            [$optionsPage, 'redressOptions']
+        ] as $action) {
+            add_action('admin_init', $action);
+        }
     }
 }
 

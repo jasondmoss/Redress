@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Settings Page.
+ * Redress Management.
  *
  * @category   Settings
  * @package    WordPress
@@ -14,7 +14,7 @@
 
 namespace Redress\Settings;
 
-class Page
+class Manager
 {
 
     /**
@@ -43,13 +43,13 @@ class Page
      * @return void
      * @access public
      */
-    public function redressSettingsPage()
+    public function redressManagerPage()
     {
         ?>
 
 <div class="wrap">
-  <h2><?php _e("Redress <small>(v{$this->version})</small> Settings", 'redress'); ?></h2><hr>
-  <p class="howto">General plug-in description will go here, followed by actual options...</p>
+  <h2><?php _e("Redress Manager <small>(v{$this->version})</small>", 'redress'); ?></h2><hr>
+  <p class="howto">This is the Redress Manager ...</p>
 
   <?php /*
   <form action="options.php" method="post">
@@ -83,7 +83,7 @@ class Page
      * @return void
      * @access public
      */
-    public function settingsPageSections()
+    public function redressManagerSections()
     {
         $this->generalSection();
         $this->modulesSection();

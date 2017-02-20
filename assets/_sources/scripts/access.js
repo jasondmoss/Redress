@@ -9,22 +9,12 @@
  * @link       https://github.com/jasondmoss/redress/
  */
 
-var $ = jQuery;
-var logo = $("div#login").find(">h1:nth-child(1)");
-var title = $("div#login").find(">h2:nth-child(2)");
+if /* Browser capability test. */("querySelector" in document && "addEventListener" in window && Array.prototype.forEach) {
+    var body = document.getElementsByTagName("body")[0];
+    var logo = document.querySelector("#login").getElementsByTagName("h1")[0];
+    var title = document.querySelector("#login").getElementsByTagName("h2")[0];
 
-$.fn.swapWith = function (to) {
-    "use strict";
-
-    return this.each(function () {
-        var copyTo = $(to).clone(true);
-        var copyFrom = $(this).clone(true);
-
-        $(to).replaceWith(copyFrom);
-        $(this).replaceWith(copyTo);
-    });
-};
-
-title.prependTo($("body"));
+    body.insertBefore(title, body.firstChild);
+}
 
 /* <> */
