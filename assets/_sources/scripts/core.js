@@ -13,7 +13,7 @@
 /**
  * Browser capability test.
  *
- * @returns {Boolean}
+ * @returns {Boolean} True if browser supports
  */
 var okay = function () {
     return (
