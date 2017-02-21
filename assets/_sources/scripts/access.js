@@ -1,5 +1,5 @@
 /**
- * Application Core.
+ * WordPress Access (Login Screen).
  *
  * @category   JavaScript
  * @subpackage Redress
@@ -9,7 +9,8 @@
  * @link       https://github.com/jasondmoss/redress/
  */
 
-if /* Browser capability test. */("querySelector" in document && "addEventListener" in window && Array.prototype.forEach) {
+if /* Browser passes check? */(okay) {
+
     var body = document.getElementsByTagName("body")[0];
     var logo = document.querySelector("#login").getElementsByTagName("h1")[0];
     var title = document.querySelector("#login").getElementsByTagName("h2")[0];

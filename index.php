@@ -46,6 +46,8 @@ use Redress\Access;
 use Redress\Bootstrap;
 use Redress\Cleanup;
 use Redress\Development;
+use Redress\Media;
+use Redress\Performance;
 use Redress\Settings\Register as Settings;
 
 /**
@@ -79,8 +81,10 @@ function redressInitializer()
     new Bootstrap($redressLanguageDir, $redressAssetsUrl, $jQueryVersion);
     new Development($devel);
     new Cleanup();
-    new Access($redressAssetsUrl, (object) $wordpressMetadata);
+    new Media();
+    new Performance();
     new Settings($pluginBasename, $pluginVersion);
+    new Access($redressAssetsUrl, (object) $wordpressMetadata);
 }
 
 add_action('plugins_loaded', 'redressInitializer');

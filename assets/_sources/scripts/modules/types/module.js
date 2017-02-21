@@ -9,15 +9,16 @@
  * @link       https://github.com/jasondmoss/redress/
  */
 
-// var $ = $ || jQuery;
-// var Redress = Redress || {};
-//
-// Redress.Modules = {
-//     /**/
-// };
+if /* Browser passes check? */(okay) {
 
-if /* Browser capability test. */("querySelector" in document && "addEventListener" in window && Array.prototype.forEach) {
-    /**/
+    /**
+     * ...
+     *
+     * @var {Object}
+     */
+    App.Modules = {
+        /**/
+    };
 }
 
 /* <> */

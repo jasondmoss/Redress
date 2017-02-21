@@ -38,31 +38,6 @@ class Cleanup
         remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
         remove_action('wp_head', 'wp_shortlink_wp_head', 10);
 
-        /**
-         * Don't assume I want media embedding by default...
-         */
-        add_action('init', function () {
-            remove_action('rest_api_init', 'wp_oembed_register_route');
-            remove_action('wp_head', 'wp_oembed_add_discovery_links');
-            remove_action('wp_head', 'wp_oembed_add_host_js');
-            remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
-        }, PHP_INT_MAX - 1);
-
-        /* Remove inline CSS and JS for WP emoji support. */
-        remove_action('wp_head', 'print_emoji_detection_script', 7);
-        remove_action('admin_print_scripts', 'print_emoji_detection_script');
-        remove_action('wp_print_styles', 'print_emoji_styles');
-        remove_action('admin_print_styles', 'print_emoji_styles');
-        remove_filter('the_content_feed', 'wp_staticize_emoji');
-        remove_filter('comment_text_rss', 'wp_staticize_emoji');
-        remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
-
-        /* Disable smilies. */
-        add_filter('option_use_smilies', '__return_false');
-
-        /* Remove inline CSS used by posts with galleries. */
-        add_filter('use_default_gallery_style', '__return_false');
-
         /* Remove inline CSS used by Recent Comments widget. */
         global $wp_widget_factory;
         if (isset($wp_widget_factory->widgets['WP_Widget_Recent_Comments'])) {
@@ -76,7 +51,7 @@ class Cleanup
         remove_filter('the_excerpt', 'wpautop');
 
 
-        /* ---- */
+        //////
 
 
         /* Remove the WordPress version from RSS feeds. */
@@ -85,9 +60,6 @@ class Cleanup
         /*  */
         add_filter('style_loader_tag', [$this, 'cleanStyleTag']);
         add_filter('script_loader_tag', [$this, 'cleanScriptTag']);
-
-        /*  */
-        add_filter('embed_oembed_html', [$this, 'embedWrap']);
 
         /*  */
         add_filter('get_bloginfo_rss', [$this, 'removeDefaultDescription']);
@@ -114,7 +86,7 @@ class Cleanup
     }
 
 
-    /* ---------------------------------------------------------------------- */
+    /* -- */
 
 
     /**
@@ -195,20 +167,6 @@ class Cleanup
     // {
     //     return preg_replace('/\s+\/>/', '>', $input);
     // }
-
-
-    /**
-     * Wrap embedded media as suggested by Readability.
-     *
-     * @param string $cache
-     *
-     * @return string
-     * @access public
-     */
-    public function embedWrap($cache)
-    {
-        return "<div class=\"entry-content-asset\">{$cache}</div>";
-    }
 
 
     /**

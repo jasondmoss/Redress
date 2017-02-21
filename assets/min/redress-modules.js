@@ -11,5 +11,5 @@
  * Link       https://github.com/jasondmoss/redress
  */
 
-"querySelector"in document&&"addEventListener"in window&&Array.prototype.forEach;
+okay&&(App.Modules={});
 //# sourceMappingURL=redress-access.js.map

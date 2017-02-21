@@ -11,5 +11,5 @@
  * Link       https://github.com/jasondmoss/redress
  */
 
-if("querySelector"in document&&"addEventListener"in window&&Array.prototype.forEach){var body=document.getElementsByTagName("body")[0],logo=document.querySelector("#login").getElementsByTagName("h1")[0],title=document.querySelector("#login").getElementsByTagName("h2")[0];body.insertBefore(title,body.firstChild)}
+function mergeArrays(){return[].concat.apply([],arguments)}var okay=function(){return"querySelector"in document&&"addEventListener"in window&&Array.prototype.forEach};if(okay)var App=App||{};if(okay){var body=document.getElementsByTagName("body")[0],logo=document.querySelector("#login").getElementsByTagName("h1")[0],title=document.querySelector("#login").getElementsByTagName("h2")[0];body.insertBefore(title,body.firstChild)}
 //# sourceMappingURL=redress-access.js.map

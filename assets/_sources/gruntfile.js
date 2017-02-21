@@ -78,11 +78,13 @@ module.exports = function (grunt) {
 
                     /* Access/Login. */
                     "../min/redress-access.js": [
+                        "scripts/core.js",
                         "scripts/access.js"
                     ],
 
                     /* Administration. */
                     "../min/redress-admin.js": [
+                        "scripts/core.js",
                         "scripts/admin.js"
                     ],
 

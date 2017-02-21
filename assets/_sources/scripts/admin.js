@@ -9,29 +9,35 @@
  * @link       https://github.com/jasondmoss/redress/
  */
 
-// var $ = $ || jQuery;
-// var Redress = Redress || {};
-//
-// Redress.Admin = {
-//     ExtUrlEditScreen: $("#the-list").find(".row-actions .view > a"),
-//     ExtUrlPlugins:    $(".wp-list-table.plugins").find(".plugin-description a, .plugin-version-author-uri a")
-// };
-//
-//
-// /**
-//  * External Links.    -------------------------------------------------------- *
-//  *
-//  * Open external links in new tab/window.
-//  */
-// $.each([
-//     Redress.Admin.ExtUrlEditScreen,
-//     Redress.Admin.ExtUrlPlugins
-// ], function (index, item) {
-//     $(item).attr("target", "_blank");
-// });
+if /* Browser passes check? */(okay) {
 
-if /* Browser capability test. */("querySelector" in document && "addEventListener" in window && Array.prototype.forEach) {
-    /**/
+    /**
+     * Admininstration variables.
+     *
+     * @var {Object}
+     */
+    App.Admin = {
+        ExtUrl: Array.from(document.querySelectorAll("a[rel~=external]")),
+        ExtUrlEditScreen: Array.from(document.querySelectorAll("#the-list .row-actions .view > a")) || [],
+        ExtUrlPlugins: Array.from(
+            document.querySelectorAll(".wp-list-table.plugins .plugin-description a, .plugin-version-author-uri a")
+        ) || []
+    };
+
+
+    /**
+     * External Links.    ---------------------------------------------------- *
+     *
+     * Open external links in new tab/window.
+     */
+    var ExternalURLs = mergeArrays(
+        App.Admin.ExtUrl,
+        App.Admin.ExtUrlEditScreen,
+        App.Admin.ExtUrlPlugins
+    );
+    [].forEach.call(ExternalURLs, function (item, index) {
+        item.setAttribute("target", "_blank");
+    });
 }
 
 /* <> */
