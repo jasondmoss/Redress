@@ -36,8 +36,8 @@ class Register
         $this->redress = $pluginBasename;
         $this->version = $redressVersion;
 
-        add_filter('plugin_action_links', [$this, 'redressPluginLinks'], 10, 2);
-        add_action('admin_menu', [$this, 'redressPluginOptions']);
+        // add_filter('plugin_action_links', [$this, 'redressPluginLinks'], 10, 2);
+        // add_action('admin_menu', [$this, 'redressPluginOptions']);
     }
 
 
@@ -53,11 +53,11 @@ class Register
     {
         if ($file == $this->redress) {
             // Plugin Options Link.
-            $redressLink['options'] = '<a href="options-general.php?page=redress-options">'.
+            $redressLink['options'] = '<a href="'. admin_url('admin.php?page=redress-options') .'">'.
                 __('Plugin Options', 'redress') .'</a>';
 
             // Redress Manager Link.
-            $redressLink['manage'] = '<a href="options-general.php?page=redress-manager">'.
+            $redressLink['manage'] = '<a href="'. admin_url('admin.php?page=redress-manager') .'">'.
                 __('Manage', 'redress') .'</a>';
 
             // Let's set the order to: Manage, Options, [WP Defined]
@@ -81,13 +81,13 @@ class Register
         $managerPage = new Manager($this->version);
         $optionsPage = new Options($this->version);
 
-        add_options_page(
+        /*add_options_page(
             __('Redress Options', 'redress'),
             __('Redress Options', 'redress'),
             'manage_options',
             'redress-options',
             [$optionsPage, 'redressOptionsPage']
-        );
+        );*/
 
         /**
          * Register a custom menu page.
@@ -107,7 +107,8 @@ class Register
             __('Redress Options', 'redress'),
             __('Redress Options', 'redress'),
             'manage_options',
-            'options-general.php?page=redress-options'
+            'redress-options',
+            [$optionsPage, 'redressOptionsPage']
         );
 
         foreach ([

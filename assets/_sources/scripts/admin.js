@@ -18,10 +18,11 @@ if /* Browser passes check? */(okay) {
      */
     App.Admin = {
         ExtUrl: Array.from(document.querySelectorAll("a[rel~=external]")),
-        ExtUrlEditScreen: Array.from(document.querySelectorAll("#the-list .row-actions .view > a")) || [],
+        ExtUrlEditScreen: Array.from(document.querySelectorAll("#the-list .row-actions .view > a")),
+        ExtUrlHelpSidebar: Array.from(document.querySelectorAll(".contextual-help-sidebar a")),
         ExtUrlPlugins: Array.from(
             document.querySelectorAll(".wp-list-table.plugins .plugin-description a, .plugin-version-author-uri a")
-        ) || []
+        )
     };
 
 
@@ -33,6 +34,7 @@ if /* Browser passes check? */(okay) {
     var ExternalURLs = mergeArrays(
         App.Admin.ExtUrl,
         App.Admin.ExtUrlEditScreen,
+        App.Admin.ExtUrlHelpSidebar,
         App.Admin.ExtUrlPlugins
     );
     [].forEach.call(ExternalURLs, function (item, index) {

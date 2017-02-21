@@ -34,6 +34,19 @@ if (version_compare(PHP_VERSION, '5.6.30', '<')) {
 }
 
 /**
+ * Conofirm Composer has been installed locally.
+ *
+ * @see https://getcomposer.org/
+ */
+if (!file_exists(__DIR__ .'/vendor/autoload.php')) {
+    die(
+        'Redress requires Composer to be installed locally.'.
+        '<br>Please visit <a href="https://getcomposer.org/" title="Composer: Dependency Manager for PHP" '.
+        'target="_blank">getcomposer.org</a>'
+    );
+}
+
+/**
  * ClassLoader implements a PSR-4 class loader.
  *
  * @uses /vendor/composer/ClassLoader.php
@@ -43,6 +56,7 @@ if (version_compare(PHP_VERSION, '5.6.30', '<')) {
 include_once __DIR__ .'/vendor/autoload.php';
 
 use Redress\Access;
+use Redress\Administration;
 use Redress\Bootstrap;
 use Redress\Cleanup;
 use Redress\Development;
@@ -62,10 +76,10 @@ function redressInitializer()
     $pluginBaseUrl = plugin_dir_url(__FILE__);
     $pluginVersion = '0.5.0';
 
-    $redressAssetsDir = "{$pluginBaseDir}assets";
+    // $redressAssetsDir = "{$pluginBaseDir}assets";
     $redressAssetsUrl = "{$pluginBaseUrl}assets/min";
     $redressImageUrl = "{$pluginBaseUrl}assets/image";
-    $redressLanguageDir = "{$pluginBaseUrl}assets/language";
+    $redressLanguageDir = "{$pluginBaseDir}assets/language";
 
     /**
      * @see https://developers.google.com/speed/libraries/#jquery
@@ -80,9 +94,10 @@ function redressInitializer()
 
     new Bootstrap($redressLanguageDir, $redressAssetsUrl, $jQueryVersion);
     new Development($devel);
-    new Cleanup();
-    new Media();
-    new Performance();
+    new Cleanup;
+    new Media;
+    new Performance;
+    new Administration($redressImageUrl);
     new Settings($pluginBasename, $pluginVersion);
     new Access($redressAssetsUrl, (object) $wordpressMetadata);
 }

@@ -63,6 +63,14 @@ trait GlobalProperties
     protected $devel;
 
     /**
+     * Absolute URL to plug-in image assets.
+     *
+     * @var string
+     * @access protected
+     */
+    protected $imageUrl;
+
+    /**
      * Preferred jquery version.
      *
      * @var string
