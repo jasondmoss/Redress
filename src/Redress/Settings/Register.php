@@ -36,8 +36,8 @@ class Register
         $this->redress = $pluginBasename;
         $this->version = $redressVersion;
 
-        // add_filter('plugin_action_links', [$this, 'redressPluginLinks'], 10, 2);
-        // add_action('admin_menu', [$this, 'redressPluginOptions']);
+        add_filter('plugin_action_links', [$this, 'redressPluginLinks'], 10, 2);
+        add_action('admin_menu', [$this, 'redressPluginOptions']);
     }
 
 
@@ -99,7 +99,11 @@ class Register
             'redress-manager',
             [$managerPage, 'redressManagerPage'],
             'dashicons-schedule',
-            '59.1'
+            /**
+             * For available menu 'locations':
+             * @see https://developer.wordpress.org/reference/functions/add_menu_page/#menu-structure
+             */
+            81
         );
 
         add_submenu_page(

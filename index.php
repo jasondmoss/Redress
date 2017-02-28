@@ -42,7 +42,7 @@ if (!file_exists(__DIR__ .'/vendor/autoload.php')) {
     die(
         'Redress requires Composer to be installed locally.'.
         '<br>Please visit <a href="https://getcomposer.org/" title="Composer: Dependency Manager for PHP" '.
-        'target="_blank">getcomposer.org</a>'
+        'target="_blank">getcomposer.org</a> for installation instructions.'
     );
 }
 
