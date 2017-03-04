@@ -18,9 +18,16 @@ class Access
 {
 
     /**
-     *
+     * @see http://php.net/manual/en/language.oop5.traits.php
      */
-    use \Redress\GlobalProperties;
+    use \Redress\HelperMethods;
+
+
+    /**
+     * @var object
+     * @access protected
+     */
+    protected $redress;
 
 
     /**

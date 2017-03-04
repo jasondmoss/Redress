@@ -18,9 +18,16 @@ class Options
 {
 
     /**
-     *
+     * @see http://php.net/manual/en/language.oop5.traits.php
      */
-    use \Redress\GlobalProperties;
+    use \Redress\HelperMethods;
+
+
+    /**
+     * @var string
+     * @access protected
+     */
+    protected $version;
 
 
     /**
