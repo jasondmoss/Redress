@@ -34,7 +34,7 @@ if (version_compare(PHP_VERSION, '5.6.30', '<')) {
 }
 
 /**
- * Conofirm Composer has been installed locally.
+ * Confirm Composer has been installed locally.
  *
  * @see https://getcomposer.org/
  */
