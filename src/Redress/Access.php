@@ -26,12 +26,13 @@ class Access
     /**
      * Class initializer.
      *
+     * @param object $redress
+     *
      * @access public
      */
-    public function __construct($redressAssetsUrl, $wordpressMetaData)
+    public function __construct($redress)
     {
-        $this->assetsUrl = $redressAssetsUrl;
-        $this->wpMeta = $wordpressMetaData;
+        $this->redress = $redress;
 
         add_action('login_enqueue_scripts', [$this, 'redressAccessAssets']);
 
@@ -61,8 +62,8 @@ class Access
      */
     public function redressAccessAssets()
     {
-        wp_register_style('redress-access-style', "{$this->assetsUrl}/redress-access.css", [], false, 'all');
-        wp_register_script('redress-access-script', "{$this->assetsUrl}/redress-access.js", [], false, true);
+        wp_register_style('redress-access-style', "{$this->redress->assets}/redress-access.css", [], false, 'all');
+        wp_register_script('redress-access-script', "{$this->redress->assets}/redress-access.js", [], false, true);
 
         wp_enqueue_style('redress-access-style');
         wp_enqueue_script('redress-access-script');
@@ -77,7 +78,7 @@ class Access
      */
     public function replaceLoginHeaderUrl()
     {
-        return $this->wpMeta->url;
+        return $this->redress->url;
     }
 
 
@@ -89,7 +90,7 @@ class Access
      */
     public function replaceLoginHeaderTitle()
     {
-        return $this->wpMeta->name;
+        return $this->redress->name;
     }
 
 
@@ -100,8 +101,8 @@ class Access
      */
     public function addNewHeaderTitle()
     {
-        echo "<h2>{$this->wpMeta->name}</h2>\n";
-        echo "<h3>{$this->wpMeta->description}</h3>\n";
+        echo "<h2>{$this->redress->name}</h2>\n";
+        echo "<h3>{$this->redress->description}</h3>\n";
     }
 
 

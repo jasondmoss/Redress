@@ -29,12 +29,13 @@ class Register
     /**
      * Class initializer.
      *
+     * @param object $redress
+     *
      * @access public
      */
-    public function __construct($pluginBasename, $redressVersion)
+    public function __construct($redress)
     {
-        $this->redress = $pluginBasename;
-        $this->version = $redressVersion;
+        $this->redress = $redress;
 
         add_filter('plugin_action_links', [$this, 'redressPluginLinks'], 10, 2);
         add_action('admin_menu', [$this, 'redressPluginOptions']);
@@ -51,7 +52,7 @@ class Register
      */
     public function redressPluginLinks($links, $file)
     {
-        if ($file == $this->redress) {
+        if ($file == $this->redress->basename) {
             // Plugin Options Link.
             $redressLink['options'] = '<a href="'. admin_url('admin.php?page=redress-options') .'">'.
                 __('Plugin Options', 'redress') .'</a>';
@@ -78,8 +79,8 @@ class Register
      */
     public function redressPluginOptions()
     {
-        $managerPage = new Manager($this->version);
-        $optionsPage = new Options($this->version);
+        $managerPage = new Manager($this->redress->version);
+        $optionsPage = new Options($this->redress->version);
 
         /*add_options_page(
             __('Redress Options', 'redress'),

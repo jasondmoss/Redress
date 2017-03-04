@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WordPress Redress.
+ * Redress.
  *
  * @package    WordPress
  * @subpackage Redress
@@ -71,35 +71,36 @@ function redressInitializer()
 {
     global $devel;
 
-    $pluginBasename = plugin_basename(__FILE__);
-    $pluginBaseDir = plugin_dir_path(__FILE__);
-    $pluginBaseUrl = plugin_dir_url(__FILE__);
-    $pluginVersion = '0.5.0';
+    $redress = (object) [];
 
-    // $redressAssetsDir = "{$pluginBaseDir}assets";
-    $redressAssetsUrl = "{$pluginBaseUrl}assets/min";
-    $redressImageUrl = "{$pluginBaseUrl}assets/image";
-    $redressLanguageDir = "{$pluginBaseDir}assets/language";
+    foreach ([
+        'name', 'description', 'url', 'admin_email', 'charset', 'language'
+    ] as $param) {
+        $redress->$param = get_bloginfo($param);
+    }
 
+    $redress->basename = plugin_basename(__FILE__);
+    $redress->baseDir = plugin_dir_path(__FILE__);
+    $redress->baseUrl = plugin_dir_url(__FILE__);
+
+    $redress->version = '0.5.0';
     /**
      * @see https://developers.google.com/speed/libraries/#jquery
      */
-    $jQueryVersion = '3.1.1';
+    $redress->jQueryVersion = '3.1.1';
 
-    foreach ([
-        'name', 'description', 'url', 'admin_email', 'charset', 'language', 'stylesheet_directory', 'template_url'
-    ] as $param) {
-        $wordpressMetadata[$param] = get_bloginfo($param);
-    }
+    $redress->assets = "{$redress->baseUrl}assets/min";
+    $redress->images = "{$redress->baseUrl}assets/image";
+    $redress->langDir = "{$redress->baseDir}assets/language";
 
-    new Bootstrap($redressLanguageDir, $redressAssetsUrl, $jQueryVersion);
+    new Bootstrap($redress);
     new Development($devel);
     new Cleanup;
     new Media;
     new Performance;
-    new Administration($redressImageUrl);
-    new Settings($pluginBasename, $pluginVersion);
-    new Access($redressAssetsUrl, (object) $wordpressMetadata);
+    new Administration($redress);
+    new Settings($redress);
+    new Access($redress);
 }
 
 add_action('plugins_loaded', 'redressInitializer');

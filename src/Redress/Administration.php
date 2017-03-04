@@ -26,11 +26,13 @@ class Administration
     /**
      * Class initializer.
      *
+     * @param object $redress
+     *
      * @access public
      */
-    public function __construct($redressImageUrl)
+    public function __construct($redress)
     {
-        $this->imageUrl = $redressImageUrl;
+        $this->redress = $redress;
 
         add_filter('admin_footer_text', [$this, 'footerText']);
     }

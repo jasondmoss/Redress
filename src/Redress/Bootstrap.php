@@ -27,17 +27,13 @@ class Bootstrap
     /**
      * Class initializer.
      *
-     * @param string $redressAssetsDir
-     * @param string $redressAssetsUrl
-     * @param string $jQueryVersion
+     * @param object $redress
      *
      * @access public
      */
-    public function __construct($redressLanguageDir, $redressAssetsUrl, $jQueryVersion)
+    public function __construct($redress)
     {
-        $this->langDir = $redressLanguageDir;
-        $this->assetsUrl = $redressAssetsUrl;
-        $this->jqv = $jQueryVersion;
+        $this->redress = $redress;
 
         add_action('plugins_loaded', [$this, 'redressLanguageFiles']);
 
@@ -57,7 +53,7 @@ class Bootstrap
      */
     public function redressLanguageFiles()
     {
-        load_plugin_textdomain('redress', false, $this->langDir);
+        load_plugin_textdomain('redress', false, $this->redress->langDir);
     }
 
 
@@ -69,14 +65,14 @@ class Bootstrap
      */
     public function redressAdminAssets()
     {
-        wp_register_style('redress-admin-style', "{$this->assetsUrl}/redress-admin.css", [], false, 'all');
-        wp_register_style('redress-modules-style', "{$this->assetsUrl}/redress-modules.css", [], false, 'all');
+        wp_register_style('redress-admin-style', "{$this->redress->assets}/redress-admin.css", [], false, 'all');
+        wp_register_style('redress-modules-style', "{$this->redress->assets}/redress-modules.css", [], false, 'all');
 
-        // wp_register_script('redress-core-script', "{$this->assetsUrl}/redress.js", [
+        // wp_register_script('redress-core-script', "{$this->redress->assets}/redress.js", [
         //     'jquery-ui-sortable'
         // ], false, true);
 
-        wp_register_script('redress-admin-script', "{$this->assetsUrl}/redress-admin.js", [
+        wp_register_script('redress-admin-script', "{$this->redress->assets}/redress-admin.js", [
         //     'redress-core-script'
         ], false, true);
 
@@ -108,13 +104,13 @@ class Bootstrap
         // if ($ieVersion = $this->getIeBrowserVersion()) {
         //     // WTF?  Still using an IE below v.9?  Geesh.
         //     if ($ieVersion < 9) {
-        //         $this->jqv = '1.12.4';
+        //         $this->redress->jQueryVersion = '1.12.4';
         //     }
         // }
         //
         // wp_register_script(
         //     'jquery',
-        //     "//ajax.googleapis.com/ajax/libs/jquery/{$this->jqv}/jquery.min.js",
+        //     "//ajax.googleapis.com/ajax/libs/jquery/{$this->redress->jQueryVersion}/jquery.min.js",
         //     [],
         //     false,
         //     true
@@ -133,7 +129,7 @@ class Bootstrap
         // // Core libraries and functions
         // wp_register_script(
         //     'redress',
-        //     "{$this->assetsUrl}/redress.js",
+        //     "{$this->redress->assets}/redress.js",
         //     array('boot'),
         //     false,
         //     true
