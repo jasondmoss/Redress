@@ -85,9 +85,13 @@ function redressInitializer()
 
     $redress->version = '0.5.0';
     /**
-     * @see https://developers.google.com/speed/libraries/#jquery
+     * @see http://www.jsdelivr.com/projects/jquery
      */
     $redress->jQueryVersion = '3.1.1';
+    /**
+     * @see http://www.jsdelivr.com/projects/umbrella
+     */
+    $redress->umbrellaVersion = '2.6.7';
 
     $redress->assets = "{$redress->baseUrl}assets/min";
     $redress->images = "{$redress->baseUrl}assets/image";

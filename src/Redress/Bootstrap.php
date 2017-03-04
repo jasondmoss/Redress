@@ -110,7 +110,7 @@ class Bootstrap
         //
         // wp_register_script(
         //     'jquery',
-        //     "//ajax.googleapis.com/ajax/libs/jquery/{$this->redress->jQueryVersion}/jquery.min.js",
+        //     "//cdn.jsdelivr.net/jquery/{$this->redress->jQueryVersion}/jquery.min.js",
         //     [],
         //     false,
         //     true
@@ -119,7 +119,7 @@ class Bootstrap
 
         wp_register_script(
             'umbrella',
-            "//cdn.jsdelivr.net/umbrella/2.6.7/umbrella.min.js",
+            "//cdn.jsdelivr.net/umbrella/{$this->redress->umbrellaVersion}/umbrella.min.js",
             [],
             false,
             true
