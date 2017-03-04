@@ -97,7 +97,7 @@ class Bootstrap
     public function redressPublicAssets()
     {
         /**
-         * De-register WordPress' version of jQuery.
+         * De-register jQuery.
          */
         wp_deregister_script('jquery');
 
@@ -120,6 +120,16 @@ class Bootstrap
         //     true
         // );
 
+
+        wp_register_script(
+            'umbrella',
+            "//cdn.jsdelivr.net/umbrella/2.6.7/umbrella.min.js",
+            [],
+            false,
+            true
+        );
+
+
         // // Core libraries and functions
         // wp_register_script(
         //     'redress',
@@ -132,6 +142,7 @@ class Bootstrap
         // wp_enqueue_style('base');
 
         // wp_enqueue_script('jquery');
+        wp_enqueue_script('umbrella');
         // wp_enqueue_script('boot');
         // wp_enqueue_script('redress');
     }

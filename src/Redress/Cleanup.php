@@ -37,6 +37,7 @@ class Cleanup
         remove_action('wp_head', 'feed_links_extra', 3);
         remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
         remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+        remove_action('wp_head', 'wp_resource_hints', 2);
 
         /* Remove inline CSS used by Recent Comments widget. */
         global $wp_widget_factory;
@@ -65,24 +66,24 @@ class Cleanup
         add_filter('get_bloginfo_rss', [$this, 'removeDefaultDescription']);
 
         /* Remove WP version info appended to styles and scripts. */
-        foreach ([
-            'script_loader_src',
-            'style_loader_src'
-        ] as $filter) {
-            add_filter($filter, [$this, 'removeWordPressVersionStrings']);
-        }
-
-        /* HTML5-ize all content output. */
         // foreach ([
-        //     'the_excerpt',
-        //     'the_content',
-        //     'post_thumbnail_html',
-        //     'get_avatar',
-        //     'comment_text',
-        //     'comment_id_fields'
+        //     'script_loader_src',
+        //     'style_loader_src'
         // ] as $filter) {
-        //     add_filter($filter, [$this, 'removeSelfClosingTags'], 10);
+        //     add_filter($filter, [$this, 'removeWordPressVersionStrings']);
         // }
+
+        /* HTML5-ize single elements. */
+        foreach ([
+            'the_excerpt',
+            'the_content',
+            'post_thumbnail_html',
+            'get_avatar',
+            'comment_text',
+            'comment_id_fields'
+        ] as $filter) {
+            add_filter($filter, [$this, 'stripSingleElement'], 10);
+        }
     }
 
 
@@ -111,10 +112,10 @@ class Cleanup
              */
             $media = ('' !== $matches[3][0]/* && 'all' !== $matches[3][0]*/) ? " media=\"{$matches[3][0]}\"" : '';
 
-            return "<link rel=\"stylesheet\" href=\"{$matches[2][0]}\"{$media} />\n";
+            return "<link rel=\"stylesheet\" href=\"{$matches[2][0]}\"{$media}>\n";
         }
 
-        return preg_replace('/\s+\/>/', '>', $input);
+        return $this->stripSingleElement($input);
     }
 
 
@@ -156,20 +157,6 @@ class Cleanup
 
 
     /**
-     * Remove unnecessary self-closing tags.
-     *
-     * @param string $input
-     *
-     * @return mixed
-     * @access public
-     */
-    // public function removeSelfClosingTags($input)
-    // {
-    //     return preg_replace('/\s+\/>/', '>', $input);
-    // }
-
-
-    /**
      * Don't return the default description in the RSS feed if it hasn't been
      * changed from the default value.
      *
@@ -183,6 +170,15 @@ class Cleanup
         $defaultTagline = 'Just another WordPress site';
 
         return ($tagline === $defaultTagline) ? '' : $tagline;
+    }
+
+
+    /**
+     *
+     */
+    public function stripSingleElement($element)
+    {
+        return preg_replace('/\s+\/>/', '>', $element);
     }
 }
 

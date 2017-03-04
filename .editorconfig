@@ -10,14 +10,11 @@ indent_style = space
 tab_width = 4
 max_line_length = 120
 
-[*.{inc,js,json,php,py,sh,txt}]
+[*.{js,json,php,txt}]
 indent_size = 4
 
-[*.{blade,css,less,htaccess,html,phtml,scss,sql,twig}]
+[*.{css,htaccess,html}]
 indent_size = 2
 
-[*.{inc,js,php}]
+[*.{js,php}]
 indent_brace_style = K&R
-
-[Makefile,*.{py,sh}]
-indent_style = tab
