@@ -72,7 +72,7 @@ module.exports = function (grunt) {
 
             main: {
                 options: {
-                    sourceMapName: '../min/redress-access.js.map'
+                    sourceMapName: '../min/redress.js.map'
                 },
                 files: {
 
