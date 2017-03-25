@@ -48,7 +48,7 @@ class Cleanup
             ]);
         }
 
-        /*  */
+        /* ... */
         remove_filter('the_excerpt', 'wpautop');
 
 
@@ -58,22 +58,100 @@ class Cleanup
         /* Remove the WordPress version from RSS feeds. */
         add_filter('the_generator', '__return_false');
 
-        /*  */
-        add_filter('style_loader_tag', [$this, 'cleanStyleTag']);
-        add_filter('script_loader_tag', [$this, 'cleanScriptTag']);
 
-        /*  */
-        add_filter('get_bloginfo_rss', [$this, 'removeDefaultDescription']);
+        /**
+         * Clean up output of stylesheet <link> tags.
+         *
+         * @param string $input
+         *
+         * @return string
+         */
+        add_filter('style_loader_tag', function ($input) {
+            preg_match_all(
+                "!<link rel='stylesheet'\s?(id='[^']+')?\s+href='(.*)' type='text/css' media='(.*)' />!",
+                $input,
+                $matches
+            );
 
-        /* Remove WP version info appended to styles and scripts. */
-        // foreach ([
-        //     'script_loader_src',
-        //     'style_loader_src'
-        // ] as $filter) {
-        //     add_filter($filter, [$this, 'removeWordPressVersionStrings']);
-        // }
+            if (isset($matches[2][0]) && isset($matches[3][0])) {
+                /**
+                 * Only display media if it is actually meaningful.
+                 */
+                $media = ('' !== $matches[3][0]/* && 'all' !== $matches[3][0]*/) ? " media=\"{$matches[3][0]}\"" : '';
 
-        /* HTML5-ize single elements. */
+                return "<link rel=\"stylesheet\" href=\"{$matches[2][0]}\"{$media}>\n";
+            }
+
+            /**
+             * HTML5-ize single elements.
+             *
+             * @param string $input
+             *
+             * @return string
+             */
+            return function ($input) {
+                return preg_replace('/\s+\/>/', '>', $input);
+            };
+        });
+
+
+        /**
+         * Clean up output of script tags.
+         *
+         * @param string $input
+         *
+         * @return string
+         */
+        add_filter('script_loader_tag', function ($input) {
+            $input = str_replace(" type='text/javascript'", '', $input);
+            $input = str_replace(' type="text/javascript"', '', $input);
+            $input = str_replace("'", '"', $input);
+
+            return $input;
+        });
+
+
+        /**
+         * Don't return the default description in the RSS feed if it hasn't been
+         * changed from the default value.
+         *
+         * @param string $tagline
+         *
+         * @return string
+         */
+        add_filter('get_bloginfo_rss', function ($tagline) {
+            $defaultTagline = 'Just another WordPress site';
+
+            return ($tagline === $defaultTagline) ? '' : $tagline;
+        });
+
+
+        /**
+         * Hide WP version strings from scripts and styles.
+         *
+         * @param string $src
+         *
+         * @return string
+         */
+        foreach ([ 'script_loader_src', 'style_loader_src' ] as $filter) {
+            add_filter($filter, function ($src) {
+                parse_str(parse_url($src, PHP_URL_QUERY), $query);
+                if (!empty($query['ver'])) {
+                    $src = remove_query_arg('ver', $src);
+                }
+
+                return $src;
+            });
+        }
+
+
+        /**
+         * HTML5-ize single elements.
+         *
+         * @param string $element
+         *
+         * @return string
+         */
         foreach ([
             'the_excerpt',
             'the_content',
@@ -82,103 +160,38 @@ class Cleanup
             'comment_text',
             'comment_id_fields'
         ] as $filter) {
-            add_filter($filter, [$this, 'stripSingleElement'], 10);
-        }
-    }
-
-
-    /* -- */
-
-
-    /**
-     * Clean up output of stylesheet <link> tags.
-     *
-     * @param string $input
-     *
-     * @return string
-     * @access public
-     */
-    public function cleanStyleTag($input)
-    {
-        preg_match_all(
-            "!<link rel='stylesheet'\s?(id='[^']+')?\s+href='(.*)' type='text/css' media='(.*)' />!",
-            $input,
-            $matches
-        );
-
-        if (isset($matches[2][0]) && isset($matches[3][0])) {
-            /**
-             * Only display media if it is actually meaningful.
-             */
-            $media = ('' !== $matches[3][0]/* && 'all' !== $matches[3][0]*/) ? " media=\"{$matches[3][0]}\"" : '';
-
-            return "<link rel=\"stylesheet\" href=\"{$matches[2][0]}\"{$media}>\n";
+            add_filter($filter, function ($element) {
+                return preg_replace('/\s+\/>/', '>', $element);
+            }, 10);
         }
 
-        return $this->stripSingleElement($input);
-    }
+
+        /**
+         * Remove Admin Menu Link to Theme Customizer
+         *
+         */
+        add_action('admin_menu', function () {
+            global $submenu;
+
+            if (isset($submenu['themes.php'])) {
+                foreach ($submenu['themes.php'] as $index => $menu_item) {
+                    if (in_array('Customize', $menu_item)) {
+                        unset($submenu['themes.php'][$index]);
+                    }
+                }
+            }
+        });
 
 
-    /**
-     * Clean up output of script tags.
-     *
-     * @param string $input
-     *
-     * @return string
-     * @access public
-     */
-    public function cleanScriptTag($input)
-    {
-        $input = str_replace(" type='text/javascript'", '', $input);
-        $input = str_replace(' type="text/javascript"', '', $input);
-        $input = str_replace("'", '"', $input);
-
-        return $input;
-    }
-
-
-    /**
-     * Hide WP version strings from scripts and styles.
-     *
-     * @param string $src
-     *
-     * @return string
-     * @access public
-     */
-    public function removeWordPressVersionStrings($src)
-    {
-        parse_str(parse_url($src, PHP_URL_QUERY), $query);
-        if (!empty($query['ver'])) {
-            $src = remove_query_arg('ver', $src);
-        }
-
-        return $src;
-    }
-
-
-    /**
-     * Don't return the default description in the RSS feed if it hasn't been
-     * changed from the default value.
-     *
-     * @param string $tagline
-     *
-     * @return string
-     * @access public
-     */
-    public function removeDefaultDescription($tagline)
-    {
-        $defaultTagline = 'Just another WordPress site';
-
-        return ($tagline === $defaultTagline) ? '' : $tagline;
-    }
-
-
-    /**
-     *
-     */
-    public function stripSingleElement($element)
-    {
-        return preg_replace('/\s+\/>/', '>', $element);
+        /**
+         * Remove unneeded menu items from the adminbar.
+         *
+         * @param \WP_Admin_Bar $wpAdminBar
+         */
+        add_action('admin_bar_menu', function ($wpAdminBar) {
+            $wpAdminBar->remove_menu('customize');
+            $wpAdminBar->remove_menu('themes');
+        }, 999);
     }
 }
 
