@@ -1043,6 +1043,9 @@ table td div.entry-actions.disabled a {
   color: #000;
 }
 
+/*
+ CONFILCTS
+
 .notice {
   box-sizing: border-box !important;
   display: table;
@@ -1097,6 +1100,7 @@ table td div.entry-actions.disabled a {
   padding: 6px 20px;
   background: #fff 0 0 repeat scroll;
 }
+*/
 
 code,
 pre {
