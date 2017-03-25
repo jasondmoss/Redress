@@ -14,7 +14,7 @@
  *
  * Plugin Name: Redress
  * Plugin URI:  https://github.com/jasondmoss/redress/
- * Description: Bootstrapping processes to clean-up, streamline and otherwise fix + enhance WordPress.
+ * Description: Bootstrapping processes to clean-up, streamline and otherwise fix and enhance WordPress.
  * Version:     0.5.0
  * Author:      Jason D. Moss <jason@jdmlabs.com>
  * Author URI:  https://www.jdmlabs.com/
