@@ -12,7 +12,7 @@
  *
  * - - - - -
  *
- * Plugin Name: Redress
+ * Plugin Name: &#9733; Redress
  * Plugin URI:  https://github.com/jasondmoss/redress/
  * Description: Bootstrapping processes to clean-up, streamline and otherwise fix and enhance WordPress.
  * Version:     0.5.0
