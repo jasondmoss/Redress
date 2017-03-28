@@ -41,11 +41,54 @@ class Administration
     {
         $this->redress = $redress;
 
+        add_action('init', [$this, 'changePostObjectLabels']);
+        add_action('admin_menu', [$this, 'changePostLabel']);
         add_filter('admin_footer_text', [$this, 'footerText']);
     }
 
 
     /* -- */
+
+
+    /**
+     * ...
+     *
+     * @access public
+     */
+    public function changePostLabel()
+    {
+        global $menu, $submenu;
+
+        $menu[5][0] = __('Articles', 'redress');
+        $submenu['edit.php'][5][0] = __('Article', 'redress');
+    }
+
+
+    /**
+     * ...
+     *
+     * @access public
+     */
+    public function changePostObjectLabels()
+    {
+        global $wp_post_types;
+
+        $labels = &$wp_post_types['post']->labels;
+
+        $labels->name = _x('Articles', 'post type general name');
+        $labels->singular_name = _x('Article', 'post type singular name');
+        $labels->all_items = __('All Articles', 'redress');
+        $labels->add_new = __('Add new Article', 'redress');
+        $labels->add_new_item = __('Add new Article', 'redress');
+        $labels->edit_item = __('Edit Article', 'redress');
+        $labels->new_item = __('New Article', 'redress');
+        $labels->view_item = __('View Article', 'redress');
+        $labels->search_items = __('Search Articles', 'redress');
+        $labels->not_found = __('No Articles found', 'redress');
+        $labels->not_found_in_trash = __('No Articles found in Trash', 'redress');
+        $labels->menu_name = __('Articles', 'redress');
+        $labels->name_admin_bar = __('Article', 'redress');
+    }
 
 
     /**
