@@ -167,6 +167,17 @@ class Cleanup
 
 
         /**
+         * Remove update notifications for non-admin users.
+         *
+         */
+        add_action('admin_notices', function () {
+            if (!current_user_can('activate_plugins')) {
+                remove_action('admin_notices', 'update_nag', 3);
+            }
+        }, 1);
+
+
+        /**
          * Remove Admin Menu Link to Theme Customizer
          *
          */
