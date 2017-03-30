@@ -52,7 +52,7 @@ class Cleanup
         remove_filter('the_excerpt', 'wpautop');
 
 
-        //////
+        /* -- */
 
 
         /* Remove the WordPress version from RSS feeds. */
@@ -153,12 +153,12 @@ class Cleanup
          * @return string
          */
         foreach ([
-            'the_excerpt',
-            'the_content',
-            'post_thumbnail_html',
-            'get_avatar',
+            'comment_id_fields',
             'comment_text',
-            'comment_id_fields'
+            'get_avatar',
+            'post_thumbnail_html',
+            'the_content',
+            'the_excerpt'
         ] as $filter) {
             add_filter($filter, function ($element) {
                 return preg_replace('/\s+\/>/', '>', $element);
@@ -168,7 +168,6 @@ class Cleanup
 
         /**
          * Remove update notifications for non-admin users.
-         *
          */
         add_action('admin_notices', function () {
             if (!current_user_can('activate_plugins')) {
@@ -178,20 +177,11 @@ class Cleanup
 
 
         /**
-         * Remove Admin Menu Link to Theme Customizer
-         *
+         * Remove admin menu items.
          */
-        add_action('admin_menu', function () {
-            global $submenu;
-
-            if (isset($submenu['themes.php'])) {
-                foreach ($submenu['themes.php'] as $index => $menu_item) {
-                    if (in_array('Customize', $menu_item)) {
-                        unset($submenu['themes.php'][$index]);
-                    }
-                }
-            }
-        });
+        foreach ([ 'removeAdminMenus', 'removeAdminSubMenus' ] as $method) {
+            add_action('admin_menu', $method);
+        }
 
 
         /**
@@ -203,6 +193,66 @@ class Cleanup
             $wpAdminBar->remove_menu('customize');
             $wpAdminBar->remove_menu('themes');
         }, 999);
+    }
+
+
+    /* -- */
+
+
+    /**
+     * ...
+     *
+     * @return void
+     * @access public
+     */
+    public function removeAdminMenus()
+    {
+        global $menu;
+
+        /* All users. */
+        $restrict = explode(',', 'Links,Comments');
+
+        /* Non-administrator users. */
+        $restrictUser = explode(',', 'Media,Profile,Users,Tools,Settings');
+
+        /* WP localization. */
+        $func = create_function('$v,$i', 'return __($v);');
+        array_walk($restrict, $func);
+        if (!current_user_can('activate_plugins')) {
+            array_walk($restrictUser, $func);
+            $restrict = array_merge($restrict, $restrictUser);
+        }
+
+        /* Remove menus. */
+        end($menu);
+        while (prev($menu)) {
+            $k = key($menu);
+            $v = explode(' ', $menu[$k][0]);
+
+            if (in_array(is_null($v[0]) ? '' : $v[0], $restrict)) {
+                unset($menu[$k]);
+            }
+        }
+    }
+
+
+    /**
+     * ...
+     *
+     * @return void
+     * @access public
+     */
+    public function removeAdminSubMenus()
+    {
+        global $submenu;
+
+        if (isset($submenu['themes.php'])) {
+            foreach ($submenu['themes.php'] as $index => $menuItem) {
+                if (in_array('Customize', $menuItem)) {
+                    unset($submenu['themes.php'][$index]);
+                }
+            }
+        }
     }
 }
 
