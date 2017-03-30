@@ -42,26 +42,11 @@ class Administration
         $this->redress = $redress;
 
         add_action('init', [$this, 'changePostObjectLabels']);
-        add_action('admin_menu', [$this, 'changePostLabel']);
         add_filter('admin_footer_text', [$this, 'footerText']);
     }
 
 
     /* -- */
-
-
-    /**
-     * ...
-     *
-     * @access public
-     */
-    public function changePostLabel()
-    {
-        global $menu, $submenu;
-
-        $menu[5][0] = __('Articles', 'redress');
-        $submenu['edit.php'][5][0] = __('Article', 'redress');
-    }
 
 
     /**
