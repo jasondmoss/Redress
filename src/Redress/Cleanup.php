@@ -180,7 +180,7 @@ class Cleanup
          * Remove admin menu items.
          */
         foreach ([ 'removeAdminMenus', 'removeAdminSubMenus' ] as $method) {
-            add_action('admin_menu', $method);
+            add_action('admin_menu', [$this, $method]);
         }
 
 
