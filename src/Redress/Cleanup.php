@@ -24,6 +24,16 @@ class Cleanup
      */
     public function __construct()
     {
+        /**
+         * Set the "From" email address in response to an unauthorized password
+         * reset vulnerability.
+         *
+         * @see https://wptavern.com/wordpress-security-issue-in-password-reset-emails-to-be-fixed-in-future-release
+         */
+        add_filter('wp_mail_from', function ($fromEmail) {
+            return get_option('admin_email');
+        });
+
         /* Remove unnecessary <link>'s. */
         add_action('wp_head', 'ob_start', 1, 0);
         add_action('wp_head', function () {
