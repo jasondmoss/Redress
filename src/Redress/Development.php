@@ -55,10 +55,7 @@ class Development
                 file_put_contents(ABSPATH .'wp-content/uploads/pluginActivationErrors.html', ob_get_contents());
             }, 3, 0);
 
-            foreach ([
-                'admin_head',
-                'wp_head'
-            ] as $action) {
+            foreach ([ 'admin_head', 'wp_head' ] as $action) {
                 add_action($action, [$this, 'printDevServerCommentMessage']);
             }
 
