@@ -94,8 +94,8 @@ class Development
 ********************************************************************************
   *                                                                          *
   *                                                                          *
-  *            YOU ARE CURRENTLY WORKING ON THE DEVELOPMENT SERVER           *
-  *                      WITH _FULL_ DEBUGGING ENABLED!                      *
+  *         YOU ARE CURRENTLY WORKING WITH _FULL_ DEBUGGING ENABLED!         *
+  *                             JUST A HEADS UP.                             *
   *                                                                          *
   *                                                                          *
 ********************************************************************************
