@@ -62,13 +62,9 @@ class Development
                 add_action($action, [$this, 'printDevServerCommentMessage']);
             }
 
-            // foreach ([
-            //     'admin_footer',
-            //     'login_footer',
-            //     'wp_footer'
-            // ] as $action) {
-            //     add_action($action, [$this, 'displayDevelopmentBar']);
-            // }
+            foreach ([ 'admin_footer', 'login_footer', 'wp_footer' ] as $action) {
+                add_action($action, [$this, 'displayDevelopmentBar']);
+            }
         }
     }
 
