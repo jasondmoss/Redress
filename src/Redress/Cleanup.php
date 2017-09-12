@@ -57,6 +57,10 @@ class Cleanup
                 'recent_comments_style'
             ]);
         }
+        add_filter('show_recent_comments_widget_style', function () {
+            return false;
+        });
+
 
         /* ... */
         remove_filter('the_excerpt', 'wpautop');
